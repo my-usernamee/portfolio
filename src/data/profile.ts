@@ -3,8 +3,7 @@ export const profile = {
   fullName: "Sarvajana Hari",
   handle: "my-usernamee",
   location: "Singapore",
-  // TODO(hari): fill in the real email before deploying
-  email: "hari@example.com",
+  email: "hari007@e.ntu.edu.sg",
   links: {
     github: "https://github.com/my-usernamee",
     linkedin: "https://www.linkedin.com/in/hari-%E2%80%8E-%E2%80%8E-244b3724b",
