@@ -28,8 +28,8 @@ export const bio =
 
 // three pointers, none of them the internships or the teams
 export const pointers: { text: string; href?: string }[] = [
-  { text: "Ran ==300 million calculations== to find the best Wordle opener, then wrote it up", href: "/writing" },
-  { text: "Built a Chrome extension that tells you ==which side of the bus to sit on==", href: "https://github.com/my-usernamee/shady" },
+  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "/writing" },
+  { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
 ];
 
 export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "computer engineering @ ntu" };
@@ -50,11 +50,11 @@ export const teams: Team[] = [
     slug: "deepspeed",
     name: "NTU DeepSpeed",
     what: "F1TENTH / RoboRacer autonomous racing",
-    role: "Navigation & control",
+    role: "Assembly, planning & testing",
     since: "Mar 2026",
     lines: [
-      "1:10 scale cars that race head-to-head with ==a LiDAR and no cameras==. I work on the navigation stack: reactive methods, global planning, PID, ==SLAM==, and a lot of iterative testing on obstacle avoidance and stability.",
-      "Raced at ==IEEE ICRA 2026 in Vienna==, then in Korea, and placed well in the ==sim-racing== rounds along the way.",
+      "1:10 scale cars that race head-to-head on LiDAR alone, no cameras. I helped assemble the car and work on the software stack, mostly the ==spliner and planning== side, plus a lot of time testing it on track in practice.",
+      "Raced at ICRA 2026 in Vienna, ==P16 at IFAC in Korea==, and ==P2 in the IROS sim racing==.",
     ],
     tags: ["ROS 2", "LiDAR", "SLAM", "PID", "Docker", "Linux"],
     link: "https://ntudeepspeed.github.io",
@@ -66,8 +66,8 @@ export const teams: Team[] = [
     role: "Robotics software · navigation & perception",
     since: "Aug 2026",
     lines: [
-      "Student-built AUVs for SAUVC and RoboSub. The team ==won SAUVC 2025== and is taking two vehicles, Hydra and Kraken, to ==RoboSub 2026==.",
-      "I'm on the software side, working on ==navigation and perception== for now.",
+      "Student-built autonomous underwater vehicles. Joined the club recently, on the robotics software team doing ==navigation and perception==.",
+      "Next up: competing at ==RobotX== at the end of the year.",
     ],
     tags: ["ROS 2", "Computer Vision", "Navigation"],
     link: "https://mecatron.sg",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
     name: "Image Deblurring",
     year: "2025",
     kind: "project",
-    blurb: "End-to-end deblurring on the GoPro dataset. ==U-Net encoder-decoder== with skip connections, plus cross-stage feature fusion and a ==supervised attention module== to refine multi-scale features for sharper reconstructions.",
+    blurb: "End-to-end deblurring on the GoPro dataset. ==U-Net encoder-decoder== with skip connections, plus cross-stage feature fusion and a supervised attention module to refine multi-scale features for sharper reconstructions.",
     tags: ["Python", "PyTorch", "OpenCV"],
     link: "https://github.com/my-usernamee/imagedeblur",
   },
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     name: "Shady",
     year: "2026",
     kind: "extension",
-    blurb: "Chrome extension for Google Maps that combines the Routes API with ==real-time solar position== to recommend ==which side of the vehicle to sit on==, so the sun isn't in your face.",
+    blurb: "Chrome extension for Google Maps that combines the Routes API with ==real-time solar position== to recommend which side of the vehicle to sit on, so the sun isn't in your face.",
     tags: ["TypeScript", "JavaScript", "Google Routes API"],
     link: "https://github.com/my-usernamee/shady",
   },
@@ -131,13 +131,13 @@ export const stints: Stint[] = [
     period: "May – Aug 2026",
     org: "Singapore Prison Service",
     role: "RPA Intern, Prison Visit Management",
-    note: "End-to-end RPA with ==UiPath and Power Automate==, integrating enterprise systems to automate high-volume admin workflows. Worked with stakeholders to find what to automate, redesign the workflow, and ship something that ==cuts manual steps and turnaround time==.",
+    note: "End-to-end RPA with ==UiPath and Power Automate==, integrating enterprise systems to automate high-volume admin workflows. Worked with stakeholders to find what to automate, redesign the workflow, and ship something that cuts manual steps and turnaround time.",
   },
   {
     period: "Feb – Apr 2026",
     org: "OCBC Bank",
     role: "Intranet Revamp Intern, Group Legal & Compliance",
-    note: "Redesigned the ==SharePoint intranet for five departments==, ran testing and phased rollout, wrote the docs and training so it ==outlives the intern==.",
+    note: "Redesigned the ==SharePoint intranet== for five departments, ran testing and phased rollout, wrote the docs and training so it outlives the intern.",
   },
 ];
 
