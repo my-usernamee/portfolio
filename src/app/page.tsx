@@ -2,55 +2,60 @@ import Link from "next/link";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import { bio, honors, interests, now, profile, projects, skills, stints, teams } from "@/data/profile";
+import { bio, honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
 
 export default function Home() {
   return (
     <main className="mx-auto max-w-6xl px-5 sm:px-8 lg:pl-28">
       {/* intro */}
-      <section className="pt-14 sm:pt-20">
-        <h1 className="display-wide text-6xl text-ink sm:text-8xl">
-          hey, i&apos;m <span className="hl">hari</span>
-          <span className="text-teal">.</span>
-        </h1>
-        <div className="mt-6 max-w-2xl space-y-3 text-xl leading-relaxed text-ink sm:text-2xl">
-          <p>
-            I&apos;m into <span className="hl">robotics</span>, <span className="hl">machine learning</span>, and building random things that seem
-            interesting. Usually learning by doing, tinkering with ideas, and turning half-baked concepts into actual projects.
-          </p>
-          <p className="text-graphite">{bio[1]}</p>
+      <section className="grid gap-10 pt-10 sm:pt-16 md:grid-cols-12 md:items-start">
+        <div className="md:col-span-7 md:pt-4">
+          <h1 className="display-wide text-6xl text-ink sm:text-8xl">
+            hey, i&apos;m <span className="hl">hari</span>
+            <span className="text-teal">.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-xl leading-relaxed text-ink sm:text-2xl">{bio}</p>
+
+          <ul className="mt-7 space-y-2.5 font-mono text-sm text-graphite">
+            {pointers.map((f) => (
+              <li key={f.text} className="flex gap-3">
+                <span className="text-teal">&gt;</span>
+                {f.href ? (
+                  <a href={f.href} target={f.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="link-under hover:text-ink">
+                    {f.text}
+                  </a>
+                ) : (
+                  <span>{f.text}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
+            {[
+              ["email", `mailto:${profile.email}`],
+              ["github", profile.links.github],
+              ["linkedin", profile.links.linkedin],
+              ["resume", profile.links.resume],
+            ].map(([label, href]) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer" className="link-under text-graphite hover:text-ink">
+                {label} ↗
+              </a>
+            ))}
+          </div>
         </div>
 
-        <dl className="mt-9 max-w-3xl divide-y divide-line border-y border-line">
-          {now.map((n) => (
-            <div key={n.label} className="grid gap-1 py-4 sm:grid-cols-[96px_1fr] sm:gap-4">
-              <dt className="font-mono text-xs tracking-[0.18em] text-teal">{n.label.toUpperCase()}</dt>
-              <dd className="text-[15px] leading-relaxed text-graphite">
-                {n.text}
-                {n.href && (
-                  <>
-                    {" "}
-                    <Link href={n.href} className="link-under font-mono text-xs text-teal">
-                      read ↗
-                    </Link>
-                  </>
-                )}
-              </dd>
+        <div className="order-first md:order-none md:col-span-5 md:pl-6">
+          <figure className="polaroid polaroid-hero relative mx-auto max-w-[250px] sm:max-w-[300px] md:ml-auto md:mr-2">
+            <span className="tape" />
+            <div className="relative aspect-[4/5] w-full overflow-hidden">
+              <Photo src={photo.src} alt={photo.alt} label="HARI" className="h-full w-full object-cover object-[50%_30%]" />
             </div>
-          ))}
-        </dl>
-
-        <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
-          {[
-            ["email", `mailto:${profile.email}`],
-            ["github", profile.links.github],
-            ["linkedin", profile.links.linkedin],
-            ["resume", profile.links.resume],
-          ].map(([label, href]) => (
-            <a key={label} href={href} target="_blank" rel="noreferrer" className="link-under text-graphite hover:text-ink">
-              {label} ↗
-            </a>
-          ))}
+            <figcaption className="mt-3 flex items-baseline justify-between gap-3">
+              <span className="display text-lg text-ink">hari</span>
+              <span className="font-mono text-[11px] text-graphite">{photo.caption}</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 

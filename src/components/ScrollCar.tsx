@@ -25,66 +25,106 @@ export function CarSvg({ className = "" }: { className?: string }) {
   );
 }
 
-const ROAD_W = 96; // fixed column width
-const CX = 44; // road centre x
-const AMP = 15; // wiggle amplitude
-const PERIOD = 300; // px per full S
+const ROAD_W = 96; // vertical road column width (desktop)
+const ROAD_H = 44; // horizontal road strip height (mobile)
+const AMP_V = 15;
+const AMP_H = 6;
+const PERIOD_V = 300;
+const PERIOD_H = 220;
 
-// A wiggly road down the left edge. The car follows the path as the page scrolls.
+function progress() {
+  const vh = window.innerHeight;
+  const max = document.documentElement.scrollHeight - vh;
+  return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+}
+
+// Binary-search the path length whose point has coordinate `target` on axis `axis`. Paths are monotonic along that axis.
+function lengthAt(path: SVGPathElement, len: number, axis: "x" | "y", target: number) {
+  let lo = 0;
+  let hi = len;
+  for (let i = 0; i < 18; i++) {
+    const mid = (lo + hi) / 2;
+    if (path.getPointAtLength(mid)[axis] < target) lo = mid;
+    else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+function place(car: HTMLDivElement, path: SVGPathElement, len: number, s: number, scale: number) {
+  const a = path.getPointAtLength(Math.max(0, s - 3));
+  const b = path.getPointAtLength(Math.min(len, s + 3));
+  const pt = path.getPointAtLength(s);
+  const deg = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI - 90;
+  car.style.transform = `translate(${pt.x}px, ${pt.y}px) rotate(${deg}deg) scale(${scale}) translate(-50%, -50%)`;
+}
+
+// Desktop: a wiggly road down the left edge. Mobile: a wiggly road along the bottom edge.
+// The car follows whichever is visible as the page scrolls.
 export default function ScrollCar() {
-  const pathRef = useRef<SVGPathElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  const carRef = useRef<HTMLDivElement>(null);
+  const vPath = useRef<SVGPathElement>(null);
+  const vSvg = useRef<SVGSVGElement>(null);
+  const vCar = useRef<HTMLDivElement>(null);
+  const hPath = useRef<SVGPathElement>(null);
+  const hSvg = useRef<SVGSVGElement>(null);
+  const hCar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let raf = 0;
-    let len = 0;
+    let vLen = 0;
+    let hLen = 0;
+    const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
 
     const build = () => {
-      const h = window.innerHeight;
-      const svg = svgRef.current;
-      const path = pathRef.current;
-      if (!svg || !path) return;
-      svg.setAttribute("viewBox", `0 0 ${ROAD_W} ${h}`);
-      svg.setAttribute("height", `${h}`);
-      const half = PERIOD / 2;
-      let d = `M ${CX} -60`;
-      let y = -60;
-      let sign = 1;
-      while (y < h + 60) {
-        const y2 = y + half;
-        d += ` C ${CX + sign * AMP * 1.6} ${y + half * 0.4}, ${CX + sign * AMP * 1.6} ${y2 - half * 0.4}, ${CX} ${y2}`;
-        y = y2;
-        sign = -sign;
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      if (vSvg.current && vPath.current) {
+        vSvg.current.setAttribute("viewBox", `0 0 ${ROAD_W} ${vh}`);
+        vSvg.current.setAttribute("height", `${vh}`);
+        const cx = 44;
+        const half = PERIOD_V / 2;
+        let d = `M ${cx} -60`;
+        let y = -60;
+        let sign = 1;
+        while (y < vh + 60) {
+          const y2 = y + half;
+          d += ` C ${cx + sign * AMP_V * 1.6} ${y + half * 0.4}, ${cx + sign * AMP_V * 1.6} ${y2 - half * 0.4}, ${cx} ${y2}`;
+          y = y2;
+          sign = -sign;
+        }
+        vPath.current.setAttribute("d", d);
+        vLen = vPath.current.getTotalLength();
       }
-      path.setAttribute("d", d);
-      len = path.getTotalLength();
+      if (hSvg.current && hPath.current) {
+        hSvg.current.setAttribute("viewBox", `0 0 ${vw} ${ROAD_H}`);
+        hSvg.current.setAttribute("width", `${vw}`);
+        const cy = ROAD_H / 2 + 4;
+        const half = PERIOD_H / 2;
+        let d = `M -60 ${cy}`;
+        let x = -60;
+        let sign = 1;
+        while (x < vw + 60) {
+          const x2 = x + half;
+          d += ` C ${x + half * 0.4} ${cy + sign * AMP_H * 1.6}, ${x2 - half * 0.4} ${cy + sign * AMP_H * 1.6}, ${x2} ${cy}`;
+          x = x2;
+          sign = -sign;
+        }
+        hPath.current.setAttribute("d", d);
+        hLen = hPath.current.getTotalLength();
+      }
     };
 
     const update = () => {
       raf = 0;
-      const car = carRef.current;
-      const path = pathRef.current;
-      if (!car || !path || !len) return;
-      const vh = window.innerHeight;
-      const max = document.documentElement.scrollHeight - vh;
-      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      // the road extends 60px past both edges; keep the car between 12% and 88% of the viewport
-      const yTarget = vh * (0.12 + 0.76 * p);
-      // find the path length that lands on yTarget (path is monotonic in y)
-      let lo = 0;
-      let hi = len;
-      for (let i = 0; i < 18; i++) {
-        const mid = (lo + hi) / 2;
-        if (path.getPointAtLength(mid).y < yTarget) lo = mid;
-        else hi = mid;
+      const p = progress();
+      if (isDesktop()) {
+        if (vCar.current && vPath.current && vLen) {
+          const y = window.innerHeight * (0.12 + 0.76 * p);
+          place(vCar.current, vPath.current, vLen, lengthAt(vPath.current, vLen, "y", y), 1);
+        }
+      } else if (hCar.current && hPath.current && hLen) {
+        const x = window.innerWidth * (0.08 + 0.84 * p);
+        place(hCar.current, hPath.current, hLen, lengthAt(hPath.current, hLen, "x", x), 0.62);
       }
-      const s = (lo + hi) / 2;
-      const a = path.getPointAtLength(Math.max(0, s - 3));
-      const b = path.getPointAtLength(Math.min(len, s + 3));
-      const pt = path.getPointAtLength(s);
-      const deg = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI - 90;
-      car.style.transform = `translate(${pt.x}px, ${pt.y}px) rotate(${deg}deg) translate(-50%, -50%)`;
     };
 
     const onScroll = () => {
@@ -106,18 +146,35 @@ export default function ScrollCar() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-y-0 left-0 z-40 hidden lg:block" style={{ width: ROAD_W }}>
-      <svg ref={svgRef} width={ROAD_W} className="absolute inset-0">
-        <defs>
-          <path ref={pathRef} id="road-path" />
-        </defs>
-        <use href="#road-path" className="road-edge" />
-        <use href="#road-path" className="road-surface" />
-        <use href="#road-path" className="road-centre" />
-      </svg>
-      <div ref={carRef} className="car">
-        <CarSvg />
+    <>
+      {/* desktop: vertical road */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-y-0 left-0 z-40 hidden lg:block" style={{ width: ROAD_W }}>
+        <svg ref={vSvg} width={ROAD_W} className="absolute inset-0">
+          <defs>
+            <path ref={vPath} id="road-v" />
+          </defs>
+          <use href="#road-v" className="road-edge" />
+          <use href="#road-v" className="road-surface" />
+          <use href="#road-v" className="road-centre" />
+        </svg>
+        <div ref={vCar} className="car">
+          <CarSvg />
+        </div>
       </div>
-    </div>
+      {/* mobile: horizontal road along the bottom */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 bottom-0 z-40 lg:hidden" style={{ height: ROAD_H }}>
+        <svg ref={hSvg} height={ROAD_H} className="absolute inset-0">
+          <defs>
+            <path ref={hPath} id="road-h" />
+          </defs>
+          <use href="#road-h" className="road-edge road-edge-sm" />
+          <use href="#road-h" className="road-surface road-surface-sm" />
+          <use href="#road-h" className="road-centre" />
+        </svg>
+        <div ref={hCar} className="car">
+          <CarSvg />
+        </div>
+      </div>
+    </>
   );
 }

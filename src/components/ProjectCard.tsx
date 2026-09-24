@@ -1,20 +1,20 @@
 import type { Project } from "@/data/profile";
+import { illustrations } from "./Illustrations";
 import Photo from "./Photo";
 
 export default function ProjectCard({ p }: { p: Project }) {
+  const Illo = illustrations[p.slug];
   return (
-    <article className="card mb-5">
+    <article className="card h-full">
       <div className="card-head">
         <span className="truncate">{p.slug}.app</span>
         <span className="text-dim">{p.year}</span>
       </div>
       <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line">
-        <Photo src={p.image ?? `/images/projects/${p.slug}.png`} alt={`${p.name} screenshot`} label="SCREENSHOT" className="h-full w-full object-cover object-top" />
+        {Illo ? <Illo className="h-full w-full" /> : <Photo src={p.image ?? `/images/projects/${p.slug}.png`} alt={`${p.name} screenshot`} label="SCREENSHOT" className="h-full w-full object-cover object-top" />}
       </div>
       <div className="p-4">
-        <div className="flex items-center gap-2">
-          <span className="kind">{p.kind}</span>
-        </div>
+        <span className="kind">{p.kind}</span>
         <h3 className="display mt-3 text-2xl text-ink">{p.name}</h3>
         <p className="mt-2 text-sm leading-relaxed text-graphite">{p.blurb}</p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">

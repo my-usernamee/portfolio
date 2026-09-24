@@ -21,27 +21,17 @@ export const pages = [
 ];
 
 // the bio under the name, in Hari's words
-export const bio = [
-  "I'm into robotics, machine learning, and building random things that seem interesting. Usually learning by doing, tinkering with ideas, and turning half-baked concepts into actual projects.",
-  "Still exploring what I really like, and always down to try something new.",
+export const bio =
+  "I'm into robotics, machine learning, and building random things that seem interesting. Usually learning by doing, tinkering with ideas, and turning half-baked concepts into actual projects.";
+
+// three pointers, none of them the internships or the teams
+export const pointers: { text: string; href?: string }[] = [
+  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "/writing" },
+  { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
+  { text: "Training a physics tutor bot that answers a question with a better question" },
 ];
 
-// three short rows, inferred from what's actually in the repos and the resume
-export const now: { label: string; text: string; href?: string }[] = [
-  {
-    label: "now",
-    text: "Teaching a 1:10 race car to pick a line from a LiDAR scan with NTU DeepSpeed, an AUV to see with Mecatron, and a physics tutor bot to ask before it answers (URECA). Days go to RPA at Singapore Prison Service.",
-  },
-  {
-    label: "lately",
-    text: "Solved Wordle with entropy, wrote up RAG so it makes sense, and built a Chrome extension about which side of the bus to sit on. Small problems, properly finished.",
-    href: "/writing",
-  },
-  {
-    label: "usually",
-    text: "Python, ROS 2, PyTorch, Docker, and whatever the problem actually needs. Sim first, then the track. LiDAR over cameras, at least on the car.",
-  },
-];
+export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "somewhere by the sea · beanie season" };
 
 export type Team = {
   slug: string;
