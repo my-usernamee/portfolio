@@ -19,7 +19,7 @@ export default function Climbing() {
         {/* stats */}
         <div className="grid gap-4 sm:grid-cols-3">
           {[
-            ["GRADE", climbing.grade, climbing.gradeNote],
+            ["WHY", climbing.grade, climbing.gradeNote],
             ["HOME GYM", climbing.homeGym, `climbing since ${climbing.since}`],
             ["STYLE", "slab · crimps", climbing.style],
           ].map(([k, v, sub]) => (
@@ -37,11 +37,10 @@ export default function Climbing() {
             <p className="font-mono text-[10px] tracking-[0.2em] text-dim">GYM COLOURS → V-SCALE, ROUGHLY</p>
             <ul className="mt-4 space-y-2">
               {gradeKey.map((g) => (
-                <li key={g.name} className={`flex items-center gap-3 font-mono text-sm ${g.me ? "text-ink" : "text-graphite"}`}>
+                <li key={g.name} className="flex items-center gap-3 font-mono text-sm text-graphite">
                   <span className="h-4 w-4 rounded-full border border-line-strong" style={{ background: g.color }} />
                   <span className="w-16">{g.name}</span>
                   <span>{g.v}</span>
-                  {g.me && <span className="ml-auto text-xs text-teal">← me</span>}
                 </li>
               ))}
             </ul>

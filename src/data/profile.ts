@@ -28,10 +28,9 @@ export const bio =
 export const pointers: { text: string; href?: string }[] = [
   { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "/writing" },
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
-  { text: "Training a physics tutor bot that answers a question with a better question" },
 ];
 
-export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "somewhere by the sea · beanie season" };
+export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "somewhere by the sea" };
 
 export type Team = {
   slug: string;
@@ -150,7 +149,7 @@ export const honors = [
 
 // the small "otherwise" line at the bottom of the home page
 export const interests = [
-  { label: "bouldering", note: "greens at Boulder+, about V4", href: "/climbing" },
+  { label: "bouldering", note: "badly, for fun", href: "/climbing" },
   { label: "f1 trips", note: "Marina Bay, Albert Park, Sepang", href: "/f1" },
   { label: "travel photos", note: "treks and race weekends", href: "/photos" },
   { label: "writing", note: "on Medium, occasionally", href: "/writing" },

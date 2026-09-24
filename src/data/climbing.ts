@@ -1,14 +1,14 @@
 // TODO(hari): confirm the gym name and grades, replace example sends
 export const climbing = {
-  grade: "V4",
-  gradeNote: "greens at Boulder+ Chevron House, on a good day",
+  grade: "for fun",
+  gradeNote: "greens at Boulder+ on a good day, mostly just for the falling",
   homeGym: "Boulder+ (Chevron House)",
   since: "2025",
   style: "Slab and crimps. Roofs and dynos are the project.",
   currentProject: {
     name: "The roof green by the mats",
     gym: "Boulder+ Chevron House",
-    grade: "green · ~V4/V5",
+    grade: "green",
     attempts: 11,
     note: "Have the first three moves and the top. The heel hook in the middle keeps popping.",
   },
@@ -18,7 +18,7 @@ export const climbing = {
 export const gradeKey = [
   { color: "#f2c94c", name: "yellow", v: "V0–V1" },
   { color: "#e8843a", name: "orange", v: "V1–V2" },
-  { color: "#3f9a5a", name: "green", v: "V3–V4", me: true },
+  { color: "#3f9a5a", name: "green", v: "V3–V4" },
   { color: "#3b6fd6", name: "blue", v: "V4–V5" },
   { color: "#d63b3b", name: "red", v: "V5–V6" },
   { color: "#15171a", name: "black", v: "V6+" },

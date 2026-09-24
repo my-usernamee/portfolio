@@ -2,7 +2,7 @@ import Link from "next/link";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import { bio, honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
+import { honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
 
 export default function Home() {
   return (
@@ -14,7 +14,10 @@ export default function Home() {
             hey, i&apos;m <span className="hl">hari</span>
             <span className="text-teal">.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-xl leading-relaxed text-ink sm:text-2xl">{bio}</p>
+          <p className="mt-6 max-w-xl text-xl leading-relaxed text-ink sm:text-2xl">
+            I&apos;m into <span className="hl">robotics</span>, <span className="hl">machine learning</span>, and building random things that seem
+            interesting. Usually learning by doing, tinkering with ideas, and turning half-baked concepts into actual projects.
+          </p>
 
           <ul className="mt-7 space-y-2.5 font-mono text-sm text-graphite">
             {pointers.map((f) => (
@@ -49,7 +52,7 @@ export default function Home() {
           <figure className="polaroid polaroid-hero relative mx-auto max-w-[250px] sm:max-w-[300px] md:ml-auto md:mr-2">
             <span className="tape" />
             <div className="relative aspect-[4/5] w-full overflow-hidden">
-              <Photo src={photo.src} alt={photo.alt} label="HARI" className="h-full w-full object-cover object-[50%_30%]" />
+              <Photo src={photo.src} alt={photo.alt} label="HARI" className="h-full w-full object-cover object-center" />
             </div>
             <figcaption className="mt-3 flex items-baseline justify-between gap-3">
               <span className="display text-lg text-ink">hari</span>
