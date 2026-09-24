@@ -64,7 +64,7 @@ export const teams: Team[] = [
     name: "NTU Mecatron",
     what: "Autonomous underwater vehicles",
     role: "Robotics software · navigation & perception",
-    since: "2026",
+    since: "Aug 2026",
     lines: [
       "Student-built AUVs for SAUVC and RoboSub. The team won SAUVC 2025 and is taking two vehicles, Hydra and Kraken, to RoboSub 2026.",
       "I'm on the software side, working on navigation and perception for now.",

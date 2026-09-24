@@ -11,7 +11,7 @@ export default function Photos() {
     <main className="relative" data-cursor="camera">
       <HoldField n={5} />
       <PageHeader eyebrow="TRAVEL" title="places & photos">
-        {photos.length} photos from {countries.length} countries. Hover for where and when.
+        {photos.length} photos from {countries.length} countries. <span className="hidden md:inline">Hover</span><span className="md:hidden">Tap</span> a photo for where and when.
       </PageHeader>
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
         <PhotoWall photos={photos} />

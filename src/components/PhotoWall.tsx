@@ -93,8 +93,8 @@ export default function PhotoWall({ photos }: { photos: TravelPhoto[] }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.src} alt={`${p.place}, ${p.country}`} width={p.width} height={p.height} loading="lazy" decoding="async" className="block h-auto w-full" />
               <figcaption className="cap">
-                <span className="display block text-lg leading-tight">{p.place}</span>
-                <span className="font-mono text-[11px] tracking-[0.18em] opacity-90">
+                <span className="display block text-base leading-tight sm:text-lg">{p.place}</span>
+                <span className="block font-mono text-[10px] tracking-[0.14em] opacity-90 sm:text-[11px] sm:tracking-[0.18em]">
                   {p.country.toUpperCase()}
                   {p.when && ` · ${p.when.toUpperCase()}`}
                 </span>
