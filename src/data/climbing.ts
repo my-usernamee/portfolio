@@ -5,7 +5,6 @@ export const climbing = {
     ["since", "Apr 2025"],
     ["gym", "Boulder+, mostly Chevron House"],
     ["style", "no style. just go up."],
-    ["shoes", "too tight, as intended"],
     ["ratio", "one send to about eleven falls"],
     ["why", "same problem, try again, change one thing"],
     ["insta", "@justgoupbruh"],
