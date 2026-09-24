@@ -132,7 +132,7 @@ export const stints: Stint[] = [
     note: "Redesigned the SharePoint intranet for five departments, ran testing and phased rollout, wrote the docs and training so it outlives the intern.",
   },
   {
-    period: "2026 – now",
+    period: "Aug 2026 – now",
     org: "NTU URECA",
     role: "Undergraduate researcher",
     note: "Building a Socratic physics tutor bot. TODO(hari): add supervisor / lab.",
@@ -144,7 +144,6 @@ export const honors = [
   { title: "NTU Honours College", year: "2025" },
   { title: "Nanyang Global Merit Scholar", year: "2025" },
   { title: "JEE Advanced, All India Rank 2170", year: "2022" },
-  { title: "cGPA 4.76 / 5.00, Computer Engineering", year: "now" },
 ];
 
 // the small "otherwise" line at the bottom of the home page

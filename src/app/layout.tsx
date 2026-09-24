@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
-      <body className="grain min-h-full flex flex-col">
+      <body className="grain min-h-full flex flex-col" suppressHydrationWarning>
         <Cursor />
         <RobotGate />
         <SiteNav />
