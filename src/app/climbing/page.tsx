@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HoldField } from "@/components/Doodles";
+import Hl from "@/components/Hl";
 import PageHeader from "@/components/PageHeader";
 import Photo from "@/components/Photo";
 import { climbing } from "@/data/climbing";
@@ -11,7 +12,7 @@ export default function Climbing() {
     <main className="relative" data-cursor="hand">
       <HoldField n={8} />
       <PageHeader eyebrow="BOULDERING" title="problems, not routes">
-        {climbing.line} Mostly at {climbing.gym}.
+        <Hl>{climbing.line}</Hl> Mostly at {climbing.gym}.
       </PageHeader>
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
         <dl className="mb-10 grid max-w-2xl gap-x-8 gap-y-2 font-mono text-sm sm:grid-cols-2">

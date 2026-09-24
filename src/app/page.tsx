@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HoldField } from "@/components/Doodles";
+import Hl from "@/components/Hl";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
@@ -27,10 +28,10 @@ export default function Home() {
                 <span className="text-teal">&gt;</span>
                 {f.href ? (
                   <a href={f.href} target={f.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="link-under hover:text-ink">
-                    {f.text}
+                    <Hl>{f.text}</Hl>
                   </a>
                 ) : (
-                  <span>{f.text}</span>
+                  <Hl>{f.text}</Hl>
                 )}
               </li>
             ))}
@@ -89,7 +90,9 @@ export default function Home() {
                   </h3>
                   <div className="mt-3 space-y-2 text-sm leading-relaxed text-graphite">
                     {t.lines.map((l, j) => (
-                      <p key={j}>{l}</p>
+                      <p key={j}>
+                        <Hl>{l}</Hl>
+                      </p>
                     ))}
                   </div>
                   <div className="mt-4 flex flex-wrap gap-1.5">
@@ -134,7 +137,9 @@ export default function Home() {
                 <div>
                   <p className="font-semibold text-ink">{s.org}</p>
                   <p className="text-sm text-graphite">{s.role}</p>
-                  <p className="mt-2 text-sm text-graphite">{s.note}</p>
+                  <p className="mt-2 text-sm text-graphite">
+                    <Hl>{s.note}</Hl>
+                  </p>
                 </div>
               </li>
             ))}

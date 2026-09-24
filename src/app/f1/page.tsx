@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Circuit from "@/components/Circuit";
 import { HoldField } from "@/components/Doodles";
+import Hl from "@/components/Hl";
 import PageHeader from "@/components/PageHeader";
 import Photo from "@/components/Photo";
 import { fan, trips, wishlist } from "@/data/f1";
@@ -12,7 +13,7 @@ export default function F1() {
     <main className="relative" data-cursor="flag">
       <HoldField n={3} />
       <PageHeader eyebrow="F1 TRIPS" title="circuits i've stood at">
-        Three circuits, four weekends. {fan.line}
+        Three circuits, four weekends. <Hl>{fan.line}</Hl>
       </PageHeader>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
@@ -30,7 +31,9 @@ export default function F1() {
                 <Circuit slug={t.slug} className="h-24 w-full" />
                 <h2 className="display mt-3 text-2xl text-ink">{t.gp}</h2>
                 <p className="font-mono text-xs text-dim">{t.circuit}</p>
-                <p className="mt-3 text-sm text-graphite">{t.note}</p>
+                <p className="mt-3 text-sm text-graphite">
+                  <Hl>{t.note}</Hl>
+                </p>
               </div>
             </li>
           ))}

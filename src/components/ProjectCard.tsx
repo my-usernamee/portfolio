@@ -1,5 +1,6 @@
 import type { Project } from "@/data/profile";
 import { illustrations } from "./Illustrations";
+import Hl from "./Hl";
 import Photo from "./Photo";
 
 export default function ProjectCard({ p }: { p: Project }) {
@@ -16,7 +17,9 @@ export default function ProjectCard({ p }: { p: Project }) {
       <div className="p-4">
         <span className="kind">{p.kind}</span>
         <h3 className="display mt-3 text-2xl text-ink">{p.name}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-graphite">{p.blurb}</p>
+        <p className="mt-2 text-sm leading-relaxed text-graphite">
+          <Hl>{p.blurb}</Hl>
+        </p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {p.tags.map((t) => (
             <span key={t} className="chip">
