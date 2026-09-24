@@ -14,6 +14,14 @@ export default function Climbing() {
         {climbing.line} Mostly at {climbing.gym}.
       </PageHeader>
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
+        <dl className="mb-10 grid max-w-2xl gap-x-8 gap-y-2 font-mono text-sm sm:grid-cols-2">
+          {climbing.facts.map(([k, v]) => (
+            <div key={k} className="flex gap-3 border-b border-line py-2">
+              <dt className="w-14 shrink-0 text-[11px] uppercase tracking-[0.18em] text-teal">{k}</dt>
+              <dd className="text-graphite">{v}</dd>
+            </div>
+          ))}
+        </dl>
         <div className="grid gap-8 md:grid-cols-2">
           {climbing.photos.map((p, i) => (
             <figure key={p.src} className={`polaroid lift relative ${i ? "md:mt-12 md:-rotate-1" : "md:rotate-1"}`}>

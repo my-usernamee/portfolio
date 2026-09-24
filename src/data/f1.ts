@@ -1,4 +1,3 @@
-// TODO(hari): add years and a line about each trip
 export type Trip = { slug: "marina-bay" | "albert-park" | "sepang"; gp: string; circuit: string; city: string; year: string; note: string; image: string };
 
 export const trips: Trip[] = [
@@ -7,7 +6,7 @@ export const trips: Trip[] = [
     gp: "Singapore Grand Prix",
     circuit: "Marina Bay Street Circuit",
     city: "Singapore",
-    year: "20XX",
+    year: "2024 · 2025",
     note: "Home race. Night lights, humidity you can chew, and the walk from Bay Grandstand to the MRT at midnight.",
     image: "/images/f1/singapore.jpg",
   },
@@ -16,7 +15,7 @@ export const trips: Trip[] = [
     gp: "Australian Grand Prix",
     circuit: "Albert Park Circuit",
     city: "Melbourne",
-    year: "20XX",
+    year: "2025",
     note: "Season opener energy. Lake, parkland, and the loudest crowd on the calendar.",
     image: "/images/f1/melbourne.jpg",
   },
@@ -25,7 +24,7 @@ export const trips: Trip[] = [
     gp: "Sepang International Circuit",
     circuit: "Sepang",
     city: "Kuala Lumpur",
-    year: "20XX",
+    year: "2026",
     note: "The Hermann Tilke classic with the two long straights. No F1 race here since 2017, so this one was a track visit.",
     image: "/images/f1/sepang.jpg",
   },

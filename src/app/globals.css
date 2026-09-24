@@ -71,8 +71,9 @@ body {
 
 /* teal tape highlight behind a phrase */
 .hl {
-  background-image: linear-gradient(transparent 55%, var(--teal-soft) 55%, var(--teal-soft) 92%, transparent 92%);
-  padding: 0 0.1em;
+  background-image: linear-gradient(transparent 12%, rgba(0, 210, 190, 0.38) 12%, rgba(0, 210, 190, 0.38) 92%, transparent 92%);
+  padding: 0 0.15em;
+  font-weight: 600;
 }
 
 /* gym route tag: the bits of tape under a boulder problem */
@@ -225,7 +226,7 @@ html.has-cursor .cursor-glyph { display: block; }
 .zoom img { transition: transform 0.6s ease; }
 .lift:hover .zoom img { transform: scale(1.04); }
 .menu-box { transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease; }
-.menu-box:hover { transform: translate(-1px, -2px); background: var(--paper); border-color: var(--ink); box-shadow: 2px 3px 0 rgba(21, 23, 26, 0.15); }
+.menu-box:hover { transform: translate(-2px, -2px); background: var(--paper-2); border-color: var(--ink); box-shadow: 4px 5px 0 rgba(21, 23, 26, 0.15); }
 .menu-box.is-active { background: var(--ink); }
 .menu-box.is-active .display, .menu-box.is-active span { color: var(--paper); }
 .chip { transition: background 0.18s ease, color 0.18s ease; }
@@ -234,6 +235,19 @@ html.has-cursor .cursor-glyph { display: block; }
 /* holds: tilt and pop when touched */
 .hold { transition: transform 0.2s ease; }
 .hold:hover { transform: scale(1.25) rotate(0deg) !important; }
+
+/* travel tiles */
+.tile { position: relative; overflow: hidden; background: var(--paper-3); }
+.tile img { transition: transform 0.6s ease; }
+.tile:hover img { transform: scale(1.05); }
+.tile .cap {
+  position: absolute; inset: auto 0 0 0; padding: 0.75rem;
+  background: linear-gradient(180deg, transparent, rgba(21, 23, 26, 0.75));
+  color: var(--paper); opacity: 0; transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.tile:hover .cap, .tile:focus-within .cap { opacity: 1; transform: none; }
+@media (pointer: coarse) { .tile .cap { opacity: 1; transform: none; } }
 
 /* the wiggly road and the car on it */
 .road-edge { fill: none; stroke: var(--line-strong); stroke-width: 30; stroke-linecap: round; }

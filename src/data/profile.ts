@@ -120,7 +120,7 @@ export type Stint = { period: string; org: string; role: string; note: string };
 
 export const stints: Stint[] = [
   {
-    period: "May 2026 – now",
+    period: "May – Aug 2026",
     org: "Singapore Prison Service",
     role: "RPA Intern, Prison Visit Management",
     note: "End-to-end RPA with UiPath and Power Automate, integrating enterprise systems to automate high-volume admin workflows. Worked with stakeholders to find what to automate, redesign the workflow, and ship something that cuts manual steps and turnaround time.",
@@ -151,6 +151,6 @@ export const honors = [
 export const interests = [
   { label: "bouldering", note: "badly, for fun", href: "/climbing" },
   { label: "f1 trips", note: "Marina Bay, Albert Park, Sepang", href: "/f1" },
-  { label: "travel photos", note: "treks and race weekends", href: "/photos" },
+  { label: "travel photos", note: "nine countries, one trek", href: "/photos" },
   { label: "writing", note: "on Medium, occasionally", href: "/writing" },
 ];

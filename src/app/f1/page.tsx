@@ -12,7 +12,7 @@ export default function F1() {
     <main className="relative" data-cursor="flag">
       <HoldField n={3} />
       <PageHeader eyebrow="F1 TRIPS" title="circuits i've stood at">
-        Three so far. {fan.line}
+        Three circuits, four weekends. {fan.line}
       </PageHeader>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
@@ -21,7 +21,7 @@ export default function F1() {
             <li key={t.slug} className="card lift flex flex-col">
               <div className="card-head">
                 <span>{t.city.toLowerCase()}</span>
-                <span className={t.year.includes("X") ? "text-teal" : "text-dim"}>{t.year}</span>
+                <span className="text-dim">{t.year}</span>
               </div>
               <div className="zoom relative aspect-[4/3] w-full border-b border-line">
                 <Photo src={t.image} alt={`${t.gp} photo`} label={t.city.toUpperCase()} mono={false} className="h-full w-full object-cover" />
