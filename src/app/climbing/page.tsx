@@ -19,7 +19,15 @@ export default function Climbing() {
           {climbing.facts.map(([k, v]) => (
             <div key={k} className="flex gap-3 border-b border-line py-2">
               <dt className="w-14 shrink-0 text-[11px] uppercase tracking-[0.18em] text-teal">{k}</dt>
-              <dd className="text-graphite">{v}</dd>
+              <dd className="text-graphite">
+                {k === "insta" ? (
+                  <a href={climbing.instagram} target="_blank" rel="noreferrer" className="link-under text-ink">
+                    {v} ↗
+                  </a>
+                ) : (
+                  v
+                )}
+              </dd>
             </div>
           ))}
         </dl>
