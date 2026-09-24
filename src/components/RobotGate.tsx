@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import PitLane from "./PitLane";
 import { CarSvg } from "./ScrollCar";
 
 const KEY = "hari-gate-passed";
@@ -140,24 +141,15 @@ export default function RobotGate() {
     setSeed((s) => s + 1);
   };
 
-  // pit box puzzle (phones): drag the car so it stops inside the box
-  const BOX = { from: 64, to: 78 };
-  const [pos, setPos] = useState(8);
-  const park = () => {
-    if (pos < BOX.from) {
-      setMsg(pos < 30 ? "you haven't left the garage." : "too early. keep going.");
-      setShake(true);
-      setTimeout(() => setShake(false), 450);
-      return;
-    }
-    if (pos > BOX.to) {
-      setMsg("box box box. you overshot the pit box.");
-      setShake(true);
-      setTimeout(() => setShake(false), 450);
-      return;
-    }
+  const pitPass = () => {
+    setMsg(null);
     setPassed(true);
     setTimeout(close, 1300);
+  };
+  const pitMiss = (m: string) => {
+    setMsg(m);
+    setShake(true);
+    setTimeout(() => setShake(false), 450);
   };
 
   if (!open) return null;
@@ -179,46 +171,14 @@ export default function RobotGate() {
             <h2 id="gate-title" className="display mt-3 text-2xl text-ink">
               park it in the <span className="hl">pit box</span>
             </h2>
-            <p className="mt-1 font-mono text-xs text-graphite">drag the car down the pit lane and let go inside the box.</p>
-            <div className="relative mt-6 h-24 select-none">
-              {/* pit lane */}
-              <div className="absolute inset-x-0 top-1/2 h-8 -translate-y-1/2 border-y border-dashed border-line-strong bg-paper-2" />
-              {/* pit box */}
-              <div
-                className="absolute top-1/2 h-12 -translate-y-1/2 border-2 border-teal bg-teal/10"
-                style={{ left: `${BOX.from}%`, width: `${BOX.to - BOX.from}%` }}
-              >
-                <span className="absolute -top-5 left-0 font-mono text-[9px] tracking-[0.2em] text-teal">BOX</span>
-              </div>
-              {/* car */}
-              <div className="pointer-events-none absolute top-1/2 h-11 w-6 -translate-x-1/2 -translate-y-1/2" style={{ left: `${pos}%` }}>
-                <CarSvg className="h-full w-full -rotate-90 scale-[1.9]" />
-              </div>
-              <input
-                type="range"
-                min={8}
-                max={96}
-                value={pos}
-                aria-label="car position along the pit lane"
-                onChange={(e) => {
-                  setMsg(null);
-                  setPos(Number(e.target.value));
-                }}
-                onPointerUp={park}
-                onTouchEnd={park}
-                onKeyUp={(e) => e.key === "Enter" && park()}
-                className="gate-range absolute inset-0 h-full w-full cursor-grab opacity-0"
-              />
-            </div>
-            <p className="mt-3 h-5 font-mono text-xs text-teal" aria-live="polite">
+            <p className="mt-1 font-mono text-xs text-graphite">touch anywhere on the lane, slide the car right, let go in the box.</p>
+            <PitLane onPass={pitPass} onMiss={pitMiss} onStart={() => setMsg(null)} />
+            <p className="mt-2 h-5 font-mono text-xs text-teal" aria-live="polite">
               {msg ?? ""}
             </p>
-            <div className="mt-2 flex items-center justify-between">
-              <button type="button" onClick={close} className="link-under font-mono text-[11px] text-dim hover:text-ink">
+            <div className="mt-2">
+              <button type="button" onClick={close} className="link-under py-2 font-mono text-[11px] text-dim hover:text-ink">
                 skip, i&apos;m in a hurry
-              </button>
-              <button type="button" onClick={park} className="route-tag !rotate-0" style={{ ["--tag" as string]: "var(--teal-bright)" }}>
-                park
               </button>
             </div>
           </>
