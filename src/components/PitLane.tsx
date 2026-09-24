@@ -8,9 +8,11 @@ import { CarSvg } from "./ScrollCar";
 const START = 8; // % of lane width, car centre
 const BOX = { from: 62, to: 82 }; // forgiving box, car centre must land inside
 
-type Props = { onPass: () => void; onMiss: (msg: string) => void; onStart?: () => void };
+type Props = { onPass: () => void; onMiss: (msg: string) => void; onStart?: () => void; onRelease?: (pct: number, offCentre: number) => void };
 
-export default function PitLane({ onPass, onMiss, onStart }: Props) {
+export const PIT_BOX = BOX;
+
+export default function PitLane({ onPass, onMiss, onStart, onRelease }: Props) {
   const lane = useRef<HTMLDivElement>(null);
   const xRef = useRef(START);
   const [x, setX] = useState(START);
@@ -33,6 +35,15 @@ export default function PitLane({ onPass, onMiss, onStart }: Props) {
 
   const release = useCallback(() => {
     const v = xRef.current;
+    if (onRelease) {
+      onRelease(v, Math.abs(v - (BOX.from + BOX.to) / 2));
+      window.setTimeout(() => {
+        xRef.current = START;
+        setX(START);
+        wasInBox.current = false;
+      }, 900);
+      return;
+    }
     if (v >= BOX.from && v <= BOX.to) {
       onPass();
       return;
@@ -44,7 +55,7 @@ export default function PitLane({ onPass, onMiss, onStart }: Props) {
       setX(START);
       wasInBox.current = false;
     }, 350);
-  }, [onPass, onMiss]);
+  }, [onPass, onMiss, onRelease]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     e.preventDefault();

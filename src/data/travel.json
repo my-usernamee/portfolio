@@ -8,6 +8,8 @@
     "sort": "2026-08-23",
     "source": "date",
     "cc": "KR",
+    "lat": 35.18,
+    "lon": 129.08,
     "width": 1200,
     "height": 1600
   },
@@ -20,6 +22,8 @@
     "sort": "2026-06-15",
     "source": "seen",
     "cc": "CN",
+    "lat": 26.86,
+    "lon": 100.22,
     "width": 1066,
     "height": 1600
   },
@@ -32,6 +36,8 @@
     "sort": "2026-01-18",
     "source": "date",
     "cc": "MY",
+    "lat": 4.6,
+    "lon": 101.09,
     "width": 1200,
     "height": 1600
   },
@@ -44,6 +50,8 @@
     "sort": "2025-12-24",
     "source": "date",
     "cc": "IN",
+    "lat": 30.18,
+    "lon": 79.37,
     "width": 1600,
     "height": 1200
   },
@@ -56,6 +64,8 @@
     "sort": "2026-06-15",
     "source": "seen",
     "cc": "CN",
+    "lat": 25.71,
+    "lon": 100.15,
     "width": 1600,
     "height": 1066
   },
@@ -68,6 +78,8 @@
     "sort": "2025-04-30",
     "source": "gps",
     "cc": "LK",
+    "lat": 7.29,
+    "lon": 80.63,
     "width": 1200,
     "height": 1600
   },
@@ -80,6 +92,8 @@
     "sort": "2025-12-24",
     "source": "gps",
     "cc": "IN",
+    "lat": 30.16,
+    "lon": 79.59,
     "width": 1200,
     "height": 1600
   },
@@ -92,6 +106,8 @@
     "sort": "2026-06-15",
     "source": "seen",
     "cc": "CN",
+    "lat": 27.11,
+    "lon": 100.21,
     "width": 1066,
     "height": 1600
   },
@@ -104,6 +120,8 @@
     "sort": "2025-04-29",
     "source": "date",
     "cc": "LK",
+    "lat": 6.87,
+    "lon": 81.05,
     "width": 1200,
     "height": 1600
   },
@@ -116,6 +134,8 @@
     "sort": "2025-12-23",
     "source": "gps",
     "cc": "IN",
+    "lat": 30.15,
+    "lon": 79.58,
     "width": 1200,
     "height": 1600
   },
@@ -128,6 +148,8 @@
     "sort": "2026-06-08",
     "source": "gps",
     "cc": "CN",
+    "lat": 22.54,
+    "lon": 114.05,
     "width": 1200,
     "height": 1600
   },
@@ -140,6 +162,8 @@
     "sort": "2025-03-23",
     "source": "date",
     "cc": "AU",
+    "lat": -16.92,
+    "lon": 145.77,
     "width": 1200,
     "height": 1600
   },
@@ -152,6 +176,8 @@
     "sort": "2025-12-18",
     "source": "date",
     "cc": "IN",
+    "lat": 27.18,
+    "lon": 78.02,
     "width": 1200,
     "height": 1600
   },
@@ -164,6 +190,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 36.73,
+    "lon": 138.46,
     "width": 1066,
     "height": 1600
   },
@@ -176,6 +204,8 @@
     "sort": "2025-03-12",
     "source": "gps",
     "cc": "AU",
+    "lat": -33.87,
+    "lon": 151.19,
     "width": 1200,
     "height": 1600
   },
@@ -188,6 +218,8 @@
     "sort": "2025-12-23",
     "source": "gps",
     "cc": "IN",
+    "lat": 30.15,
+    "lon": 79.58,
     "width": 1200,
     "height": 1600
   },
@@ -200,6 +232,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 35.49,
+    "lon": 138.81,
     "width": 1066,
     "height": 1600
   },
@@ -212,6 +246,8 @@
     "sort": "2025-03-09",
     "source": "date",
     "cc": "AU",
+    "lat": -33.89,
+    "lon": 151.27,
     "width": 1600,
     "height": 900
   },
@@ -224,6 +260,8 @@
     "sort": "2025-04-13",
     "source": "gps",
     "cc": "IN",
+    "lat": 18.93,
+    "lon": 72.83,
     "width": 1200,
     "height": 1600
   },
@@ -236,6 +274,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 35.66,
+    "lon": 139.7,
     "width": 1600,
     "height": 1066
   },
@@ -248,6 +288,8 @@
     "sort": "2025-03-12",
     "source": "date",
     "cc": "AU",
+    "lat": -33.86,
+    "lon": 151.22,
     "width": 900,
     "height": 1600
   },
@@ -260,6 +302,8 @@
     "sort": "2024-12-09",
     "source": "date",
     "cc": "MY",
+    "lat": 3.16,
+    "lon": 101.71,
     "width": 1600,
     "height": 1200
   },
@@ -272,6 +316,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 35.21,
+    "lon": 139,
     "width": 1066,
     "height": 1600
   },
@@ -284,6 +330,8 @@
     "sort": "2025-03-09",
     "source": "date",
     "cc": "AU",
+    "lat": -33.89,
+    "lon": 151.27,
     "width": 1600,
     "height": 900
   },
@@ -296,6 +344,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 35.32,
+    "lon": 139.55,
     "width": 1067,
     "height": 1600
   },
@@ -308,6 +358,8 @@
     "sort": "2025-01-01",
     "source": "seen",
     "cc": "JP",
+    "lat": 36.7,
+    "lon": 137.86,
     "width": 1066,
     "height": 1600
   }

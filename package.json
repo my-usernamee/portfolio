@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "travel:import": "node scripts/import-travel.mjs",
-    "circuits:build": "node scripts/build-circuits.mjs"
+    "travel:import": "node scripts/import-travel.mjs && node scripts/build-map.mjs",
+    "circuits:build": "node scripts/build-circuits.mjs",
+    "map:build": "node scripts/build-map.mjs"
   },
   "dependencies": {
     "motion": "^13.4.2",
@@ -18,13 +19,18 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/d3-geo": "^3.1.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/topojson-client": "^3.1.5",
+    "d3-geo": "^3.1.1",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
     "svgpath": "^2.6.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "topojson-client": "^3.1.0",
+    "typescript": "^5",
+    "world-atlas": "^2.0.2"
   }
 }

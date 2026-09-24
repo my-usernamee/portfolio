@@ -37,6 +37,15 @@ async function reverseGeocode(lat, lon) {
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function forwardGeocode(q) {
+  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(q)}`;
+  const res = await fetch(url, { headers: { "User-Agent": "hari-portfolio-travel-import/1.0 (github.com/my-usernamee/portfolio)" } });
+  if (!res.ok) return null;
+  const d = await res.json();
+  return d[0] ? { lat: Number(d[0].lat), lon: Number(d[0].lon) } : null;
+}
+let manifestDirty = false;
 const rotationFor = { 3: 180, 6: 90, 8: 270 };
 
 fs.mkdirSync(outDir, { recursive: true });
@@ -59,6 +68,16 @@ for (const [file, meta] of Object.entries(manifest)) {
     await sleep(1100); // Nominatim usage policy: max 1 request per second
   }
 
+  // coordinates: EXIF GPS, else cached in the manifest, else forward-geocode the place once and cache it
+  let coords = hasGps ? { lat: x.GPSLatitude, lon: x.GPSLongitude } : meta.coords ?? null;
+  if (!coords) {
+    const q = meta.geo ?? `${meta.place ?? ""}, ${meta.country ?? ""}`;
+    coords = await forwardGeocode(q);
+    await sleep(1100);
+    if (coords) { meta.coords = coords; manifestDirty = true; console.log(`   geocoded "${q}" -> ${coords.lat.toFixed(2)}, ${coords.lon.toFixed(2)}`); }
+    else console.warn(`   could not geocode "${q}"`);
+  }
+
   const year = meta.year ?? (when ? when.slice(0, 4) : "");
   const month = !meta.year && when ? MONTHS[Number(when.slice(5, 7)) - 1] : "";
   // an override like "Jun 2026" sorts by that month; a bare "2025" sorts to the start of that year
@@ -73,6 +92,9 @@ for (const [file, meta] of Object.entries(manifest)) {
     sort: meta.year ? overrideSort : when ? when.slice(0, 10).replaceAll(":", "-") : "0000-00-00",
     source: hasGps ? "gps" : when ? "date" : "seen",
     cc: "",
+    // rounded to ~1 km so the map has a dot without publishing exact coordinates
+    lat: coords ? Math.round(coords.lat * 100) / 100 : null,
+    lon: coords ? Math.round(coords.lon * 100) / 100 : null,
     width: 0,
     height: 0,
   };
@@ -116,4 +138,5 @@ while (pool.length) {
 entries.length = 0;
 entries.push(...spread);
 fs.writeFileSync(dataPath, JSON.stringify(entries, null, 2) + "\n");
+if (manifestDirty) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
 console.log(`\nwrote ${entries.length} photos to ${path.relative(root, dataPath)}`);

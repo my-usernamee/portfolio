@@ -4,7 +4,12 @@
     "slug": "agra-fort",
     "place": "Agra Fort",
     "country": "India",
-    "seen": true
+    "seen": true,
+    "geo": "Agra Fort, Agra, India",
+    "coords": {
+      "lat": 27.1798258,
+      "lon": 78.0208223
+    }
   },
   "14.jpg": {
     "slug": "kandy-elephant",
@@ -14,13 +19,23 @@
     "slug": "kl-towers",
     "place": "Kuala Lumpur",
     "country": "Malaysia",
-    "seen": true
+    "seen": true,
+    "geo": "Petronas Towers, Kuala Lumpur",
+    "coords": {
+      "lat": 3.1579679,
+      "lon": 101.7112048
+    }
   },
   "16.jpg": {
     "slug": "uttarakhand-dog",
     "place": "Uttarakhand trek",
     "country": "India",
-    "seen": true
+    "seen": true,
+    "geo": "Chopta, Uttarakhand, India",
+    "coords": {
+      "lat": 30.1801851,
+      "lon": 79.367685
+    }
   },
   "17.jpg": {
     "slug": "sydney-harbour",
@@ -31,14 +46,24 @@
     "place": "Impression Lijiang",
     "country": "China",
     "seen": true,
-    "year": "Jun 2026"
+    "year": "Jun 2026",
+    "geo": "Lijiang, Yunnan, China",
+    "coords": {
+      "lat": 26.8595868,
+      "lon": 100.2249797
+    }
   },
   "20.jpg": {
     "slug": "snow-monkey",
     "place": "Jigokudani snow monkeys",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Jigokudani Monkey Park, Nagano, Japan",
+    "coords": {
+      "lat": 36.7328117,
+      "lon": 138.4623185
+    }
   },
   "21.jpg": {
     "slug": "shenzhen",
@@ -48,45 +73,80 @@
     "slug": "bondi",
     "place": "Bondi Beach",
     "country": "Australia",
-    "seen": true
+    "seen": true,
+    "geo": "Bondi Beach, Sydney",
+    "coords": {
+      "lat": -33.8906977,
+      "lon": 151.2724119
+    }
   },
   "23.jpg": {
     "slug": "bondi-night",
     "place": "Bondi, after dark",
     "country": "Australia",
-    "seen": true
+    "seen": true,
+    "geo": "Bondi Beach, Sydney",
+    "coords": {
+      "lat": -33.8906977,
+      "lon": 151.2724119
+    }
   },
   "24.jpg": {
     "slug": "opera-house",
     "place": "Sydney Opera House",
     "country": "Australia",
-    "seen": true
+    "seen": true,
+    "geo": "Sydney Opera House",
+    "coords": {
+      "lat": -33.857198,
+      "lon": 151.2151234
+    }
   },
   "25.jpg": {
     "slug": "reef-boat",
     "place": "Out on the reef",
     "country": "Australia",
-    "seen": true
+    "seen": true,
+    "geo": "Cairns, Queensland, Australia",
+    "coords": {
+      "lat": -16.9206657,
+      "lon": 145.7721854
+    }
   },
   "26.jpg": {
     "slug": "pekan-lama-cat",
     "place": "Ipoh old town",
     "country": "Malaysia",
-    "seen": true
+    "seen": true,
+    "geo": "Ipoh, Perak, Malaysia",
+    "coords": {
+      "lat": 4.5986817,
+      "lon": 101.0900236
+    }
   },
   "27.jpg": {
     "slug": "dali-pagodas",
     "place": "Three Pagodas, Dali",
     "country": "China",
     "seen": true,
-    "year": "Jun 2026"
+    "year": "Jun 2026",
+    "geo": "Three Pagodas, Dali, Yunnan",
+    "coords": {
+      "lat": 25.7086408,
+      "lon": 100.1465644
+    }
   },
   "28.jpg": {
     "slug": "jade-dragon",
     "place": "Jade Dragon Snow Mountain",
     "country": "China",
     "seen": true,
-    "year": "Jun 2026"
+    "year": "Jun 2026",
+    "geo": "Yulong Snow Mountain, Lijiang",
+    "coords": {
+      "lat": 27.1088948,
+      "lon": 100.2121361
+    }
   },
   "29.jpg": {
     "slug": "mumbai-taj"
@@ -95,47 +155,82 @@
     "slug": "sri-lanka-hills",
     "place": "Hill country",
     "country": "Sri Lanka",
-    "seen": true
+    "seen": true,
+    "geo": "Ella, Sri Lanka",
+    "coords": {
+      "lat": 6.8736058,
+      "lon": 81.0489927
+    }
   },
   "31.jpg": {
     "slug": "fuji-jeep",
     "place": "Fujiyoshida",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Fujiyoshida, Yamanashi, Japan",
+    "coords": {
+      "lat": 35.4874565,
+      "lon": 138.8078281
+    }
   },
   "32.jpg": {
     "slug": "shibuya",
     "place": "Shibuya, Tokyo",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Shibuya Crossing, Tokyo",
+    "coords": {
+      "lat": 35.6594951,
+      "lon": 139.7004982
+    }
   },
   "33.jpg": {
     "slug": "hakone",
     "place": "Lake Ashi, Hakone",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Lake Ashi, Hakone, Japan",
+    "coords": {
+      "lat": 35.214483,
+      "lon": 139.0019966
+    }
   },
   "34.jpg": {
     "slug": "kanagawa-bus",
     "place": "Kanagawa coast",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Kamakura, Kanagawa, Japan",
+    "coords": {
+      "lat": 35.3192808,
+      "lon": 139.5469627
+    }
   },
   "35.jpg": {
     "slug": "snow-walk",
     "place": "Walking in the snow",
     "country": "Japan",
     "year": "2025",
-    "seen": true
+    "seen": true,
+    "geo": "Hakuba, Nagano, Japan",
+    "coords": {
+      "lat": 36.6981042,
+      "lon": 137.862068
+    }
   },
   "37.png": {
     "slug": "korea-dusk",
     "place": "Busan, at dusk",
-    "country": "South Korea"
+    "country": "South Korea",
+    "geo": "Busan, South Korea",
+    "coords": {
+      "lat": 35.1799528,
+      "lon": 129.0752365
+    }
   },
   "38.png": {
     "slug": "tungnath",

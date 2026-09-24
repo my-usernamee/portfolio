@@ -253,6 +253,10 @@ html.has-cursor .cursor-glyph { display: block; }
 @media (hover: hover) { .tile.is-open .cap { opacity: 1; transform: none; } }
 @media (pointer: coarse) { .tile { -webkit-tap-highlight-color: transparent; } }
 
+/* travel map */
+@keyframes map-ping { 0% { r: 7; opacity: 0.9; } 100% { r: 18; opacity: 0; } }
+.map-ping { animation: map-ping 1.2s ease-out infinite; }
+
 /* the wiggly road and the car on it */
 .road-edge { fill: none; stroke: var(--line-strong); stroke-width: 30; stroke-linecap: round; }
 .road-surface { fill: none; stroke: var(--paper-2); stroke-width: 27; stroke-linecap: round; }

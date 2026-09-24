@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollCar from "@/components/ScrollCar";
 import RobotGate from "@/components/RobotGate";
 import Cursor from "@/components/Cursor";
+import Terminal from "@/components/Terminal";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -19,7 +20,11 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
+// absolute URLs for link previews; Vercel fills VERCEL_PROJECT_PRODUCTION_URL on deploy
+const site = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(site),
   title: { default: "hari", template: "%s · hari" },
   description:
     "Sarvajana Hari. Computer Engineering at NTU, software for NTU DeepSpeed's autonomous race car, climbing, trekking, and F1 trips.",
@@ -29,6 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_SG",
   },
+  twitter: { card: "summary_large_image", title: "hari", description: "Robotics, race cars, boulder problems." },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -36,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="grain min-h-full flex flex-col" suppressHydrationWarning>
         <Cursor />
+        <Terminal />
         <RobotGate />
         <SiteNav />
         <ScrollCar />

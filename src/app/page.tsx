@@ -3,10 +3,13 @@ import { HoldField } from "@/components/Doodles";
 import Hl from "@/components/Hl";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
+import { NextRaceLine } from "@/components/NextRace";
 import Reveal from "@/components/Reveal";
+import { getNextRace } from "@/lib/f1";
 import { honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
 
-export default function Home() {
+export default async function Home() {
+  const race = await getNextRace();
   return (
     <main className="relative mx-auto max-w-6xl px-5 sm:px-8 lg:pl-28">
       <HoldField n={9} />
@@ -180,6 +183,12 @@ export default function Home() {
                 {it.label}
               </Link>
               <span className="ml-2 font-mono text-xs text-dim">{it.note}</span>
+              {it.href === "/f1" && race && (
+                <>
+                  <span className="mx-2 font-mono text-xs text-dim">·</span>
+                  <NextRaceLine race={race} />
+                </>
+              )}
             </li>
           ))}
         </ul>

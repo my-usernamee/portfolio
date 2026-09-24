@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import Circuit from "@/components/Circuit";
 import { HoldField } from "@/components/Doodles";
 import Hl from "@/components/Hl";
+import { NextRaceCard } from "@/components/NextRace";
 import PageHeader from "@/components/PageHeader";
+import { getNextRace } from "@/lib/f1";
 import Photo from "@/components/Photo";
 import { fan, trips, wishlist } from "@/data/f1";
 
 export const metadata: Metadata = { title: "f1 trips" };
 
-export default function F1() {
+export default async function F1() {
+  const race = await getNextRace();
   return (
     <main className="relative" data-cursor="flag">
       <HoldField n={3} />
@@ -17,6 +20,7 @@ export default function F1() {
       </PageHeader>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
+        <NextRaceCard race={race} />
         <ul className="grid gap-6 md:grid-cols-3">
           {trips.map((t) => (
             <li key={t.slug} className="card lift flex flex-col">

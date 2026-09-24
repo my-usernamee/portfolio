@@ -28,6 +28,14 @@ npm run build && npm start   # production, same as Vercel
 Drop files into `public/images/`. Naming is in `public/images/README.md`.
 In dev a missing photo shows a hatched box with the expected path. In production the path is hidden, and travel tiles without a photo are left out.
 
+## Extras
+
+- **Travel map** on `/photos`: `npm run map:build` regenerates `src/data/world.json` from `travel.json`. Run it after `travel:import`.
+- **Next race** on `/f1` and the home page comes from api.jolpi.ca, cached an hour. Podium pick lives in `src/data/f1.ts`.
+- **Terminal**: press ` on any page with a keyboard. Commands are in `src/components/Terminal.tsx`.
+- **404 game**: `src/components/PitBoxGame.tsx`, scores stay in the visitor's browser.
+- **Link preview**: `src/app/opengraph-image.tsx`. Set `NEXT_PUBLIC_SITE_URL` if the site isn't on Vercel.
+
 ## Circuit outlines
 
 The F1 page draws real track layouts. Paths live in `scripts/circuits.json`, taken from Wikimedia Commons track maps (CC BY-SA). `npm run circuits:build` normalises them into `src/data/circuits.ts`.
