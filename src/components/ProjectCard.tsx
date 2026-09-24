@@ -5,7 +5,7 @@ import Photo from "./Photo";
 export default function ProjectCard({ p }: { p: Project }) {
   const Illo = illustrations[p.slug];
   return (
-    <article className="card h-full">
+    <article className="card lift h-full">
       <div className="card-head">
         <span className="truncate">{p.slug}.app</span>
         <span className="text-dim">{p.year}</span>

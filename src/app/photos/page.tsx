@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "photos" };
 
 export default function Photos() {
   return (
-    <main className="relative">
+    <main className="relative" data-cursor="camera">
       <HoldField n={5} />
       <PageHeader eyebrow="TRAVEL LOGS" title="places & photos">
         Treks, race weekends, and the food in between. Photos go in <code className="font-mono text-ink">/public/images/travel/</code>.
@@ -27,7 +27,7 @@ export default function Photos() {
             </div>
             <div className="grid grid-cols-2 gap-3 md:col-span-8 md:grid-cols-3">
               {Array.from({ length: l.photos }).map((_, i) => (
-                <div key={i} className={`polaroid relative ${i === 0 ? "col-span-2 md:col-span-2 md:row-span-2" : ""}`}>
+                <div key={i} className={`polaroid lift relative ${i === 0 ? "col-span-2 md:col-span-2 md:row-span-2" : ""}`}>
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Photo src={`/images/travel/${l.slug}-${i + 1}.jpg`} alt={`${l.place} photo ${i + 1}`} label={l.place.toUpperCase()} mono={false} className="h-full w-full object-cover" />
                   </div>

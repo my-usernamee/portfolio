@@ -7,7 +7,7 @@ export default function Polaroid({ src, alt, title, caption, href, label, mono =
   const inner = (
     <>
       <span className="tape" />
-      <div className="relative aspect-[4/3] w-full overflow-hidden">
+      <div className="zoom relative aspect-[4/3] w-full">
         <Photo src={src} alt={alt} label={label} mono={mono} className="h-full w-full object-cover" />
       </div>
       <h3 className="display mt-3 text-xl text-ink">{title}</h3>
@@ -15,7 +15,7 @@ export default function Polaroid({ src, alt, title, caption, href, label, mono =
     </>
   );
   return href ? (
-    <Link href={href} className="polaroid relative mb-5 block transition-transform hover:-translate-y-0.5">
+    <Link href={href} className="polaroid lift relative mb-5 block">
       {inner}
     </Link>
   ) : (

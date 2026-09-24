@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { interests, pages, profile } from "@/data/profile";
 
+const colors: Record<string, string> = { "/climbing": "#3f9a5a", "/f1": "var(--teal-bright)", "/photos": "#d9643a", "/writing": "#e2b53c" };
+
 export default function SiteNav() {
   const path = usePathname();
   return (
@@ -25,22 +27,23 @@ export default function SiteNav() {
                 >
                   {p.label} <span className="text-dim transition-transform group-hover:translate-y-0.5">↓</span>
                 </Link>
-                {/* hover / focus menu */}
                 <div className="invisible absolute right-0 top-full z-50 pt-2 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <ul className="card w-72 p-2">
+                  <ul className="grid w-[22rem] grid-cols-2 gap-2 border border-line-strong bg-paper p-2 shadow-[3px_4px_0_rgba(21,23,26,0.1)]">
                     {interests.map((i) => (
                       <li key={i.href}>
-                        <Link href={i.href} className={`block px-3 py-2 hover:bg-paper ${path === i.href ? "bg-paper" : ""}`}>
-                          <span className="display text-base text-ink">{i.label}</span>
-                          <span className="mt-0.5 block font-mono text-[11px] text-graphite">{i.note}</span>
+                        <Link
+                          href={i.href}
+                          className={`menu-box block border border-line-strong bg-paper-2 p-3 ${path === i.href ? "is-active" : ""}`}
+                          style={{ ["--tag" as string]: colors[i.href] ?? "var(--teal-bright)" }}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="h-2.5 w-2.5 rounded-full border border-ink/40" style={{ background: "var(--tag)" }} />
+                            <span className="display text-base text-ink">{i.label}</span>
+                          </span>
+                          <span className="mt-1 block font-mono text-[11px] leading-snug text-graphite">{i.note}</span>
                         </Link>
                       </li>
                     ))}
-                    <li className="border-t border-line px-3 pb-1 pt-2">
-                      <Link href="/interests" className="link-under font-mono text-[11px] text-dim hover:text-ink">
-                        all of it →
-                      </Link>
-                    </li>
                   </ul>
                 </div>
               </div>

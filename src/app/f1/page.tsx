@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "f1 trips" };
 
 export default function F1() {
   return (
-    <main className="relative">
+    <main className="relative" data-cursor="flag">
       <HoldField n={3} />
       <PageHeader eyebrow="F1 TRIPS" title="circuits i've stood at">
         Three so far. {fan.line}
@@ -18,12 +18,12 @@ export default function F1() {
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
         <ul className="grid gap-6 md:grid-cols-3">
           {trips.map((t) => (
-            <li key={t.slug} className="card flex flex-col">
+            <li key={t.slug} className="card lift flex flex-col">
               <div className="card-head">
                 <span>{t.city.toLowerCase()}</span>
                 <span className={t.year.includes("X") ? "text-teal" : "text-dim"}>{t.year}</span>
               </div>
-              <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-line">
+              <div className="zoom relative aspect-[4/3] w-full border-b border-line">
                 <Photo src={t.image} alt={`${t.gp} photo`} label={t.city.toUpperCase()} mono={false} className="h-full w-full object-cover" />
               </div>
               <div className="p-5">

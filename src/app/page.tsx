@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         <div className="order-first md:order-none md:col-span-5 md:pl-6">
-          <figure className="polaroid polaroid-hero relative mx-auto max-w-[250px] sm:max-w-[300px] md:ml-auto md:mr-2">
+          <figure className="polaroid polaroid-hero lift relative mx-auto max-w-[250px] sm:max-w-[300px] md:ml-auto md:mr-2">
             <span className="tape" />
             <div className="relative aspect-[4/5] w-full overflow-hidden">
               <Photo src={photo.src} alt={photo.alt} label="HARI" className="h-full w-full object-cover object-center" />
@@ -64,7 +64,7 @@ export default function Home() {
       </section>
 
       {/* teams */}
-      <section className="mt-16 sm:mt-20">
+      <section className="mt-16 sm:mt-20" data-cursor="robot">
         <div className="mb-6 flex items-baseline justify-between">
           <h2 className="display text-3xl text-ink">teams</h2>
           <p className="font-mono text-xs text-dim">the robots i spend most weekends with</p>
@@ -72,12 +72,12 @@ export default function Home() {
         <div className="grid gap-5 md:grid-cols-2">
           {teams.map((t, i) => (
             <Reveal key={t.slug} delay={i * 0.05}>
-              <article className="card flex h-full flex-col">
+              <article className="card lift flex h-full flex-col">
                 <div className="card-head">
                   <span>{t.what.toLowerCase()}</span>
                   <span className="text-dim">since {t.since}</span>
                 </div>
-                <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-line">
+                <div className="zoom relative aspect-[16/9] w-full border-b border-line">
                   <Photo src={`/images/teams/${t.slug}.jpg`} alt={`${t.name} photo`} label={t.name.toUpperCase()} className="h-full w-full object-cover" />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
@@ -107,7 +107,7 @@ export default function Home() {
       </section>
 
       {/* projects */}
-      <section className="mt-16 sm:mt-20">
+      <section className="mt-16 sm:mt-20" data-cursor="code">
         <div className="mb-6 flex items-baseline justify-between">
           <h2 className="display text-3xl text-ink">things i&apos;ve built</h2>
           <a href={profile.links.github} target="_blank" rel="noreferrer" className="link-under font-mono text-xs text-dim hover:text-ink">
