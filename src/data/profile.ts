@@ -30,7 +30,7 @@ export const pointers: { text: string; href?: string }[] = [
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
 ];
 
-export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "somewhere by the sea" };
+export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "computer engineering @ ntu" };
 
 export type Team = {
   slug: string;
