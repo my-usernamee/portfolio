@@ -183,6 +183,11 @@ export default function Home() {
           <Link href="/interests" className="link-under text-graphite hover:text-ink">
             /interests
           </Link>
+          . the writing has{" "}
+          <Link href="/writing" className="link-under text-graphite hover:text-ink">
+            its own page
+          </Link>
+          .
         </p>
       </section>
     </main>

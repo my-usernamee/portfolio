@@ -151,5 +151,4 @@ export const interests = [
   { label: "bouldering", note: "badly, for fun", href: "/climbing" },
   { label: "f1 trips", note: "Marina Bay, Albert Park, Sepang", href: "/f1" },
   { label: "travel photos", note: "nine countries, one trek", href: "/photos" },
-  { label: "writing", note: "on Medium, occasionally", href: "/writing" },
 ];
