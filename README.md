@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# hari.portfolio
 
-## Getting Started
+Personal site for Sarvajana Hari. Cream paper, Petronas teal, a small F1 car that drives down a wiggly road on the left edge as you scroll, and climbing-gym route tags for navigation. Next.js 16, Tailwind v4, Motion.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route        | What                                             | Data file               |
+| ------------ | ------------------------------------------------ | ----------------------- |
+| `/`          | intro, facts, teams, resume projects, experience | `src/data/profile.ts`   |
+| `/interests` | index of the hobby pages                         | `src/data/profile.ts`   |
+| `/writing`   | Medium posts (RSS, revalidated hourly) + manual  | `src/data/writing.ts`   |
+| `/photos`    | travel logs with photo grids                     | `src/data/travel.ts`    |
+| `/climbing`  | grade, gym colour key, current project, send log | `src/data/climbing.ts`  |
+| `/f1`        | circuits visited, allegiance, wishlist           | `src/data/f1.ts`        |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Everything visible is in those data files. Components don't hold copy.
 
-## Learn More
+## Photos
 
-To learn more about Next.js, take a look at the following resources:
+Drop files into `public/images/` using the names in `public/images/README.md`. A missing file shows a hatched placeholder that names the expected path, so nothing breaks while you collect them.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Things marked TODO or EXAMPLE
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `profile.email` is a placeholder.
+- F1 trip years are `20XX`.
+- Climbing send log rows and travel logs are marked `example: true` and show an EXAMPLE tag until replaced.
+- URECA needs a supervisor / lab line. DeepSpeed results in Vienna, Korea and sim racing are described loosely, add placings if you want them.
 
-## Deploy on Vercel
+## Layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `src/app/layout.tsx`        fonts (Archivo with width axis, IBM Plex Mono), nav, footer, car
+- `src/app/globals.css`       colour tokens, `.display` heading style, route tags, cards, polaroids
+- `src/components/ScrollCar.tsx`   the wiggly road, the car that follows it, and the car SVG
+- `src/components/Photo.tsx`  server component that swaps in a placeholder when an image is missing
+- `src/components/Circuit.tsx`     stylised circuit outlines for the F1 page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Push to GitHub and import into Vercel, or `npx vercel`. No env vars needed.
