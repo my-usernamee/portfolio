@@ -248,8 +248,10 @@ html.has-cursor .cursor-glyph { display: block; }
   color: var(--paper); opacity: 0; transform: translateY(6px);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.tile:hover .cap, .tile:focus-within .cap { opacity: 1; transform: none; }
-@media (pointer: coarse) { .tile .cap { opacity: 1; transform: none; } }
+.tile.is-open .cap { opacity: 1; transform: none; }
+@media (hover: hover) { .tile:hover .cap, .tile:focus-visible .cap { opacity: 1; transform: none; } }
+@media (hover: hover) { .tile.is-open .cap { opacity: 1; transform: none; } }
+@media (pointer: coarse) { .tile { -webkit-tap-highlight-color: transparent; } }
 
 /* the wiggly road and the car on it */
 .road-edge { fill: none; stroke: var(--line-strong); stroke-width: 30; stroke-linecap: round; }
