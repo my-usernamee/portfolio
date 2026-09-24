@@ -1,48 +1,33 @@
-# hari.portfolio
+# hari.
 
-Personal site for Sarvajana Hari. Cream paper, Petronas teal, a small F1 car that drives down a wiggly road on the left edge as you scroll, and climbing-gym route tags for navigation. Next.js 16, Tailwind v4, Motion.
+Personal site for Sarvajana Hari. Cream paper, Petronas teal, a line-art F1 car that drives a wiggly road as you scroll, climbing holds scattered in the margins, and a "prove you're not a robot" check on first visit.
+
+Next.js 16 · Tailwind v4 · Motion. Every page is static except `/writing`, which re-pulls Medium hourly.
 
 ## Run
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build
-npm run lint
+npm run build && npm start   # production, same as Vercel
 ```
 
-## Pages
+## Pages and where their content lives
 
-| Route        | What                                             | Data file               |
-| ------------ | ------------------------------------------------ | ----------------------- |
-| `/`          | intro, facts, teams, resume projects, experience | `src/data/profile.ts`   |
-| `/interests` | index of the hobby pages                         | `src/data/profile.ts`   |
-| `/writing`   | Medium posts (RSS, revalidated hourly) + manual  | `src/data/writing.ts`   |
-| `/photos`    | travel logs with photo grids                     | `src/data/travel.ts`    |
-| `/climbing`  | grade, gym colour key, current project, send log | `src/data/climbing.ts`  |
-| `/f1`        | circuits visited, allegiance, wishlist           | `src/data/f1.ts`        |
-
-Everything visible is in those data files. Components don't hold copy.
+| Route        | What                                              | Edit                   |
+| ------------ | ------------------------------------------------- | ---------------------- |
+| `/`          | bio, teams, projects, experience, stack, shelf    | `src/data/profile.ts`  |
+| `/writing`   | Medium posts via RSS                               | `src/data/writing.ts`  |
+| `/interests` | index of the hobby pages                           | `src/app/interests`    |
+| `/climbing`  | facts and two photos                               | `src/data/climbing.ts` |
+| `/f1`        | circuits and years                                 | `src/data/f1.ts`       |
+| `/photos`    | travel photo wall, hover for place and year        | `src/data/travel.ts`   |
 
 ## Photos
 
-Drop files into `public/images/` using the names in `public/images/README.md`. A missing file shows a hatched placeholder that names the expected path, so nothing breaks while you collect them.
-
-## Things marked TODO or EXAMPLE
-
-- `profile.email` is a placeholder.
-- F1 trip years are `20XX`.
-- Climbing send log rows and travel logs are marked `example: true` and show an EXAMPLE tag until replaced.
-- URECA needs a supervisor / lab line. DeepSpeed results in Vienna, Korea and sim racing are described loosely, add placings if you want them.
-
-## Layout
-
-- `src/app/layout.tsx`        fonts (Archivo with width axis, IBM Plex Mono), nav, footer, car
-- `src/app/globals.css`       colour tokens, `.display` heading style, route tags, cards, polaroids
-- `src/components/ScrollCar.tsx`   the wiggly road, the car that follows it, and the car SVG
-- `src/components/Photo.tsx`  server component that swaps in a placeholder when an image is missing
-- `src/components/Circuit.tsx`     stylised circuit outlines for the F1 page
+Drop files into `public/images/`. Naming is in `public/images/README.md`.
+In dev a missing photo shows a hatched box with the expected path. In production the path is hidden, and travel tiles without a photo are left out.
 
 ## Deploy
 
-Push to GitHub and import into Vercel, or `npx vercel`. No env vars needed.
+Import the GitHub repo into Vercel. No env vars. Framework and build settings are auto-detected.

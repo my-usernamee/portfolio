@@ -1,9 +1,11 @@
-Drop photos here. Missing files show a hatched placeholder that names the path.
+Photos the site looks for. Missing ones show a placeholder in dev and are hidden or neutral in production.
 
-projects/<slug>.png     screenshot for each project card (slugs are in src/data/profile.ts)
-climbing/cover.jpg      bouldering polaroid on the home page
-climbing/project.jpg    current project photo
-climbing/<place>.jpg    outdoor wishlist cards, e.g. dairy-farm-quarry.jpg, railay-tonsai.jpg, fontainebleau.jpg
+hari.jpg                 hero polaroid (portrait)
+teams/deepspeed.jpg      team card
+teams/mecatron.jpg       team card
+climbing/dyno.jpg        climbing page + interests cover (also cover.jpg)
+climbing/purple.jpg      climbing page
 f1/singapore.jpg  f1/melbourne.jpg  f1/sepang.jpg
-travel/cover.jpg        travel polaroid on the home page
-travel/<slug>-1.jpg ... one per photo, slugs and counts are in src/data/travel.ts
+travel/cover.jpg         interests cover
+travel/<slug>-1.jpg, -2.jpg ...   slugs and counts in src/data/travel.ts
+  melbourne, japan, srilanka, mumbai, uttarakhand, kl, ipoh, korea, brunei

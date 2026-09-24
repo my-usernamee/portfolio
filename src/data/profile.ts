@@ -120,6 +120,12 @@ export type Stint = { period: string; org: string; role: string; note: string };
 
 export const stints: Stint[] = [
   {
+    period: "Aug 2026 – now",
+    org: "NTU URECA",
+    role: "Undergraduate researcher",
+    note: "Building a Socratic physics tutor bot that answers a question with a better question, so students reason their way to the result instead of copying it.",
+  },
+  {
     period: "May – Aug 2026",
     org: "Singapore Prison Service",
     role: "RPA Intern, Prison Visit Management",
@@ -130,12 +136,6 @@ export const stints: Stint[] = [
     org: "OCBC Bank",
     role: "Intranet Revamp Intern, Group Legal & Compliance",
     note: "Redesigned the SharePoint intranet for five departments, ran testing and phased rollout, wrote the docs and training so it outlives the intern.",
-  },
-  {
-    period: "Aug 2026 – now",
-    org: "NTU URECA",
-    role: "Undergraduate researcher",
-    note: "Building a Socratic physics tutor bot. TODO(hari): add supervisor / lab.",
   },
 ];
 
@@ -150,5 +150,5 @@ export const honors = [
 export const interests = [
   { label: "bouldering", note: "badly, for fun", href: "/climbing" },
   { label: "f1 trips", note: "Marina Bay, Albert Park, Sepang", href: "/f1" },
-  { label: "travel photos", note: "nine countries, one trek", href: "/photos" },
+  { label: "travel photos", note: "seven countries, one trek", href: "/photos" },
 ];
