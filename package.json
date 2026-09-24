@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "travel:import": "node scripts/import-travel.mjs"
+    "travel:import": "node scripts/import-travel.mjs",
+    "circuits:build": "node scripts/build-circuits.mjs"
   },
   "dependencies": {
     "motion": "^13.4.2",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "svgpath": "^2.6.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
