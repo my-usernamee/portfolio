@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 // A teal ring follows the pointer with a little lag. The glyph next to it changes by zone:
 // hand over climbing holds, robot over the teams, laptop over projects, flag on F1 pages,
 // camera on photo pages. Links grow the ring. Off on touch devices and with reduced motion.
-type Mode = "ring" | "link" | "hand" | "robot" | "code" | "flag" | "camera";
+type Mode = "ring" | "link" | "hand" | "robot" | "code" | "flag" | "camera" | "country";
 
 const stroke = { fill: "var(--paper)", stroke: "var(--ink)", strokeWidth: 1.6, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
@@ -66,6 +66,7 @@ function Glyphs() {
 export default function Cursor() {
   const ring = useRef<HTMLDivElement>(null);
   const glyph = useRef<HTMLDivElement>(null);
+  const flag = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -86,9 +87,15 @@ export default function Cursor() {
       glyph.current?.setAttribute("data-mode", m);
     };
 
+    const toFlag = (cc: string) => String.fromCodePoint(...[...cc.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
     const modeFor = (t: Element | null): Mode => {
       if (!t) return "ring";
       if (t.closest("[data-hold]")) return "hand";
+      const tile = t.closest<HTMLElement>("[data-flag]");
+      if (tile?.dataset.flag) {
+        if (flag.current) flag.current.textContent = toFlag(tile.dataset.flag);
+        return "country";
+      }
       if (t.closest("a, button, input[type=range], [role=button]")) return "link";
       const z = t.closest<HTMLElement>("[data-cursor]")?.dataset.cursor as Mode | undefined;
       return z ?? "ring";
@@ -130,6 +137,7 @@ export default function Cursor() {
       <div ref={ring} className="cursor-ring" data-mode="ring" aria-hidden="true" />
       <div ref={glyph} className="cursor-glyph" data-mode="ring" aria-hidden="true">
         <Glyphs />
+        <span ref={flag} data-glyph="country" className="cursor-flag" />
       </div>
     </>
   );

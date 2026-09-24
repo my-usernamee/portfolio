@@ -216,6 +216,8 @@ html.has-cursor .cursor-glyph { display: block; }
 .cursor-glyph[data-mode="code"] svg[data-glyph="code"],
 .cursor-glyph[data-mode="flag"] svg[data-glyph="flag"],
 .cursor-glyph[data-mode="camera"] svg[data-glyph="camera"] { display: block; animation: glyph-in 0.18s ease; }
+.cursor-flag { display: none; font-size: 30px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(21, 23, 26, 0.3)); }
+.cursor-glyph[data-mode="country"] .cursor-flag { display: block; animation: glyph-in 0.18s ease; }
 @keyframes glyph-in { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 /* hover motion */

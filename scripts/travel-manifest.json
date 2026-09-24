@@ -30,7 +30,8 @@
     "slug": "impression-lijiang",
     "place": "Impression Lijiang",
     "country": "China",
-    "seen": true
+    "seen": true,
+    "year": "Jun 2026"
   },
   "20.jpg": {
     "slug": "snow-monkey",
@@ -77,13 +78,15 @@
     "slug": "dali-pagodas",
     "place": "Three Pagodas, Dali",
     "country": "China",
-    "seen": true
+    "seen": true,
+    "year": "Jun 2026"
   },
   "28.jpg": {
     "slug": "jade-dragon",
     "place": "Jade Dragon Snow Mountain",
     "country": "China",
-    "seen": true
+    "seen": true,
+    "year": "Jun 2026"
   },
   "29.jpg": {
     "slug": "mumbai-taj"

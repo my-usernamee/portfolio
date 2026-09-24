@@ -10,6 +10,7 @@ export type TravelPhoto = {
   when: string;
   sort: string;
   source: "gps" | "date" | "seen";
+  cc: string; // ISO 3166-1 alpha-2, for the flag cursor
   width: number;
   height: number;
 };

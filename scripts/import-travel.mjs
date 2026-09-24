@@ -61,14 +61,18 @@ for (const [file, meta] of Object.entries(manifest)) {
 
   const year = meta.year ?? (when ? when.slice(0, 4) : "");
   const month = !meta.year && when ? MONTHS[Number(when.slice(5, 7)) - 1] : "";
+  // an override like "Jun 2026" sorts by that month; a bare "2025" sorts to the start of that year
+  const om = meta.year?.match(/^([A-Z][a-z]{2}) (\d{4})$/);
+  const overrideSort = om ? `${om[2]}-${String(MONTHS.indexOf(om[1]) + 1).padStart(2, "0")}-15` : year ? `${year}-01-01` : "0000-00-00";
   const entry = {
     slug: meta.slug,
     src: `/images/travel/${meta.slug}.jpg`,
     place: meta.place ?? geo?.city ?? "",
     country: meta.country ?? geo?.country ?? "",
     when: [month, year].filter(Boolean).join(" "),
-    sort: when ? when.slice(0, 10).replaceAll(":", "-") : year ? `${year}-00-00` : "0000-00-00",
+    sort: meta.year ? overrideSort : when ? when.slice(0, 10).replaceAll(":", "-") : "0000-00-00",
     source: hasGps ? "gps" : when ? "date" : "seen",
+    cc: "",
     width: 0,
     height: 0,
   };
@@ -89,6 +93,8 @@ for (const [file, meta] of Object.entries(manifest)) {
   console.log(`${file.padEnd(8)} -> ${entry.slug.padEnd(22)} ${entry.place}, ${entry.country} · ${entry.when || "?"}  [${entry.source}${hasGps ? `: ${geo?.city}, ${geo?.country}` : ""}] ${entry.width}x${entry.height}`);
 }
 
+const CC = { India: "IN", "Sri Lanka": "LK", Australia: "AU", China: "CN", Malaysia: "MY", Japan: "JP", "South Korea": "KR", Brunei: "BN", Singapore: "SG" };
+for (const e of entries) e.cc = CC[e.country] ?? "";
 entries.sort((a, b) => b.sort.localeCompare(a.sort));
 
 // prune published files that are no longer in the manifest (cover.jpg is set by hand)
