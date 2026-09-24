@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mountains } from "@/components/Doodles";
+import { HoldField } from "@/components/Doodles";
 import PageHeader from "@/components/PageHeader";
 import Polaroid from "@/components/Polaroid";
 import { profile } from "@/data/profile";
@@ -8,12 +8,12 @@ export const metadata: Metadata = { title: "interests" };
 
 export default function Interests() {
   return (
-    <main>
+    <main className="relative">
+      <HoldField n={4} />
       <PageHeader eyebrow="OTHERWISE" title="when the laptop is closed">
         The non-robot parts. Each one has its own page.
       </PageHeader>
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
-        <Mountains className="mb-8 opacity-70" width={260} />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <Polaroid src="/images/climbing/cover.jpg" alt="Bouldering" title="bouldering" caption="Badly, for fun. Same problem, try again, change one thing." href="/climbing" label="CLIMBING" />
           <Polaroid src="/images/f1/singapore.jpg" alt="F1" title="f1 trips" caption="Marina Bay, Albert Park, Sepang. Team Russell, 63." href="/f1" label="F1" mono={false} />

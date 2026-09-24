@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Holds from "@/components/Holds";
+import { HoldField } from "@/components/Doodles";
 import PageHeader from "@/components/PageHeader";
 import Photo from "@/components/Photo";
 import { climbing, gradeKey, outdoorWishlist, sends } from "@/data/climbing";
@@ -8,13 +8,13 @@ export const metadata: Metadata = { title: "climbing" };
 
 export default function Climbing() {
   return (
-    <main>
+    <main className="relative">
+      <HoldField n={8} />
       <PageHeader eyebrow="BOULDERING" title="problems, not routes">
         Short walls, hard moves, lots of falling. Best debugging practice there is: same problem, try again, change one thing.
       </PageHeader>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 lg:pl-28">
-        <Holds className="mb-10 h-14 w-full max-w-md" />
 
         {/* stats */}
         <div className="grid gap-4 sm:grid-cols-3">

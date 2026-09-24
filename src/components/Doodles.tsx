@@ -1,49 +1,134 @@
-// Small hand-drawn-ish decorations: climbing holds and mountains, sprinkled around the pages.
-// All aria-hidden and pointer-events-none; purely for fun.
+"use client";
 
-type HoldProps = { color?: string; className?: string; rotate?: number; size?: number };
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
-export function Hold({ color = "#3f9a5a", className = "", rotate = 0, size = 34 }: HoldProps) {
+// Climbing holds sprinkled at random positions across a section. Hover one and the cursor becomes a hand.
+// Positions are picked once per page load on the client so the server never renders anything to mismatch.
+
+type HoldProps = { color?: string; rotate?: number; size?: number; kind?: "jug" | "crimp" | "sloper" };
+
+export function Hold({ color = "#3f9a5a", rotate = 0, size = 34, kind = "jug" }: HoldProps) {
+  const d =
+    kind === "crimp"
+      ? "M6 30 C10 14 26 8 40 10 C54 12 60 22 56 30 C50 36 12 36 6 30 Z"
+      : kind === "sloper"
+        ? "M8 36 C8 20 20 12 32 12 C44 12 56 20 56 36 C56 40 8 40 8 36 Z"
+        : "M14 40 C6 30 12 14 28 14 C44 14 54 28 46 40 C40 50 22 52 14 40 Z";
   return (
-    <svg viewBox="0 0 64 64" width={size} height={size} className={`pointer-events-none ${className}`} style={{ transform: `rotate(${rotate}deg)` }} aria-hidden="true">
-      <path d="M14 40 C6 30 12 14 28 14 C44 14 54 28 46 40 C40 50 22 52 14 40 Z" fill={color} stroke="var(--ink)" strokeWidth="1.6" strokeLinejoin="round" />
-      <circle cx="30" cy="30" r="2" fill="var(--ink)" opacity="0.5" />
+    <svg
+      data-hold=""
+      viewBox="0 0 64 64"
+      width={size}
+      height={size}
+      style={{ transform: `rotate(${rotate}deg)` }}
+      className="hold"
+      aria-hidden="true"
+    >
+      <path d={d} fill={color} stroke="var(--ink)" strokeWidth="1.6" strokeLinejoin="round" />
+      <circle cx="30" cy="28" r="2" fill="var(--ink)" opacity="0.5" />
     </svg>
   );
 }
 
-export function Crimp({ color = "#e8843a", className = "", rotate = 0, size = 30 }: HoldProps) {
-  return (
-    <svg viewBox="0 0 64 40" width={size} height={size * 0.62} className={`pointer-events-none ${className}`} style={{ transform: `rotate(${rotate}deg)` }} aria-hidden="true">
-      <path d="M6 30 C10 14 26 8 40 10 C54 12 60 22 56 30 C50 36 12 36 6 30 Z" fill={color} stroke="var(--ink)" strokeWidth="1.6" strokeLinejoin="round" />
-      <circle cx="30" cy="22" r="2" fill="var(--ink)" opacity="0.5" />
-    </svg>
-  );
+const COLORS = ["#3f9a5a", "#e8843a", "#3b6fd6", "#f2c94c", "#d63b3b", "#7b4fb8"];
+const KINDS: HoldProps["kind"][] = ["jug", "crimp", "sloper"];
+
+type Placed = { side: "left" | "right"; u: number; v: number; color: string; rotate: number; size: number; kind: HoldProps["kind"] };
+
+function seeded(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 1664525 + 1013904223) % 4294967296;
+    return s / 4294967296;
+  };
 }
 
-export function Mountains({ className = "", width = 220 }: { className?: string; width?: number }) {
-  return (
-    <svg viewBox="0 0 220 80" width={width} height={width * 0.36} className={`pointer-events-none ${className}`} aria-hidden="true">
-      <g fill="none" stroke="var(--ink)" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-        <path d="M4 72 L48 24 L70 46 L96 10 L132 54 L150 36 L182 66 L216 72" />
-        <path d="M88 20 L96 10 L104 20" stroke="var(--teal)" strokeWidth="2" />
-        <path d="M60 36 L70 46 L80 34" opacity="0.5" />
-        <path d="M118 40 L132 54 L142 44" opacity="0.5" />
-      </g>
-      {/* summit flag */}
-      <path d="M96 10 V-2" stroke="var(--ink)" strokeWidth="1.4" />
-      <path d="M96 -2 L108 2 L96 6 Z" fill="var(--teal-bright)" stroke="var(--ink)" strokeWidth="1" />
-      {/* snow line */}
-      <path d="M8 72 H212" stroke="var(--line-strong)" strokeWidth="1" strokeDasharray="3 4" />
-    </svg>
-  );
+// Scatter n holds in the gutters either side of the content column, never over text.
+// Colours and shapes come from a per-page-load seed; x positions are measured from the layout
+// on mount and resize so they track whatever width the content column ends up with.
+function scatter(n: number, seed: number): Placed[] {
+  const rnd = seeded(seed);
+  const out: Placed[] = [];
+  for (let i = 0; i < n; i++) {
+    out.push({
+      side: rnd() < 0.5 ? "left" : "right",
+      u: rnd(),
+      v: 0.04 + rnd() * 0.9,
+      color: COLORS[Math.floor(rnd() * COLORS.length)],
+      rotate: -40 + rnd() * 80,
+      size: 22 + Math.floor(rnd() * 18),
+      kind: KINDS[Math.floor(rnd() * KINDS.length)],
+    });
+  }
+  return out;
 }
 
-export function Carabiner({ className = "", size = 28 }: { className?: string; size?: number }) {
+// one random seed per page load, shared by every field so re-renders don't reshuffle
+let pageSeed = 0;
+const subscribe = () => () => {};
+const getSeed = () => {
+  if (!pageSeed) pageSeed = Math.floor(Math.random() * 1e9) || 1;
+  return pageSeed;
+};
+const EMPTY: Placed[] = [];
+const cache = new Map<string, Placed[]>();
+
+export function HoldField({ n = 5, seed, className = "" }: { n?: number; seed?: number; className?: string }) {
+  const s = useSyncExternalStore(subscribe, () => seed ?? getSeed(), () => 0);
+  const key = `${n}:${s}`;
+  let holds = EMPTY;
+  if (s) {
+    if (!cache.has(key)) cache.set(key, scatter(n, s));
+    holds = cache.get(key)!;
+  }
+  const root = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || holds.length === 0) return;
+    const place = () => {
+      const parent = el.parentElement;
+      if (!parent) return;
+      const box = parent.classList.contains("max-w-6xl") ? parent : (parent.querySelector<HTMLElement>(".max-w-6xl") ?? parent);
+      const rect = box.getBoundingClientRect();
+      const prect = parent.getBoundingClientRect();
+      const pad = parseFloat(getComputedStyle(box).paddingLeft) || 0;
+      const vw = window.innerWidth;
+      const leftMin = 112; // clear of the road
+      const leftMax = rect.left + pad - 48;
+      const rightMin = rect.right + 12;
+      const rightMax = vw - 56;
+      const leftOk = leftMax - leftMin > 28;
+      const rightOk = rightMax - rightMin > 28;
+      Array.from(el.children).forEach((c, i) => {
+        const span = c as HTMLElement;
+        const h = holds[i];
+        if (!h) return;
+        let side = h.side;
+        if (side === "left" && !leftOk) side = "right";
+        if (side === "right" && !rightOk) side = "left";
+        if (!leftOk && !rightOk) {
+          span.style.display = "none";
+          return;
+        }
+        const x = side === "left" ? leftMin + h.u * (leftMax - leftMin) : rightMin + h.u * (rightMax - rightMin);
+        span.style.display = "";
+        span.style.left = `${x - prect.left}px`;
+        span.style.top = `${h.v * 100}%`;
+      });
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [holds]);
+
   return (
-    <svg viewBox="0 0 40 64" width={size} height={size * 1.6} className={`pointer-events-none ${className}`} aria-hidden="true">
-      <path d="M20 6 C8 6 6 16 6 26 V40 C6 52 12 58 20 58 C28 58 34 52 34 40 V26 C34 16 32 6 20 6 Z" fill="none" stroke="var(--ink)" strokeWidth="2.2" strokeLinejoin="round" />
-      <path d="M32 22 L32 40" stroke="var(--teal)" strokeWidth="3" strokeLinecap="round" />
-    </svg>
+    <div ref={root} className={`pointer-events-none absolute inset-0 hidden lg:block ${className}`} aria-hidden="true">
+      {holds.map((h, i) => (
+        <span key={i} className="pointer-events-auto absolute" style={{ display: "none" }}>
+          <Hold color={h.color} rotate={h.rotate} size={h.size} kind={h.kind} />
+        </span>
+      ))}
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mountains } from "@/components/Doodles";
+import { HoldField } from "@/components/Doodles";
 import PageHeader from "@/components/PageHeader";
 import Photo from "@/components/Photo";
 import { logs } from "@/data/travel";
@@ -8,12 +8,12 @@ export const metadata: Metadata = { title: "photos" };
 
 export default function Photos() {
   return (
-    <main>
+    <main className="relative">
+      <HoldField n={5} />
       <PageHeader eyebrow="TRAVEL LOGS" title="places & photos">
         Treks, race weekends, and the food in between. Photos go in <code className="font-mono text-ink">/public/images/travel/</code>.
       </PageHeader>
       <section className="mx-auto max-w-6xl space-y-16 px-5 pb-16 sm:px-8 lg:pl-28">
-        <Mountains className="opacity-70" width={260} />
         {logs.map((l) => (
           <article key={l.slug} className="grid gap-6 md:grid-cols-12">
             <div className="md:col-span-4">

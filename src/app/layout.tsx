@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import Footer from "@/components/Footer";
 import ScrollCar from "@/components/ScrollCar";
 import RobotGate from "@/components/RobotGate";
+import Cursor from "@/components/Cursor";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="grain min-h-full flex flex-col">
+        <Cursor />
         <RobotGate />
         <SiteNav />
         <ScrollCar />

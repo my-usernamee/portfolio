@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Circuit from "@/components/Circuit";
+import { HoldField } from "@/components/Doodles";
 import PageHeader from "@/components/PageHeader";
 import Photo from "@/components/Photo";
 import { fan, trips, wishlist } from "@/data/f1";
@@ -8,7 +9,8 @@ export const metadata: Metadata = { title: "f1 trips" };
 
 export default function F1() {
   return (
-    <main>
+    <main className="relative">
+      <HoldField n={3} />
       <PageHeader eyebrow="F1 TRIPS" title="circuits i've stood at">
         Three so far. {fan.line}
       </PageHeader>

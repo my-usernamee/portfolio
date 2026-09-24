@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Carabiner, Crimp, Hold, Mountains } from "@/components/Doodles";
+import { HoldField } from "@/components/Doodles";
 import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
@@ -7,7 +7,8 @@ import { honors, interests, photo, pointers, profile, projects, skills, stints, 
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-6xl px-5 sm:px-8 lg:pl-28">
+    <main className="relative mx-auto max-w-6xl px-5 sm:px-8 lg:pl-28">
+      <HoldField n={9} />
       {/* intro */}
       <section className="grid gap-10 pt-10 sm:pt-16 md:grid-cols-12 md:items-start">
         <div className="md:col-span-7 md:pt-4">
@@ -55,22 +56,17 @@ export default function Home() {
             <div className="relative aspect-[4/5] w-full overflow-hidden">
               <Photo src={photo.src} alt={photo.alt} label="HARI" className="h-full w-full object-cover object-center" />
             </div>
-            <figcaption className="mt-3 flex items-baseline justify-between gap-3">
+            <figcaption className="mt-3">
               <span className="display text-sm text-ink">{photo.caption}</span>
-              <Crimp size={26} rotate={-8} className="shrink-0" />
             </figcaption>
           </figure>
-          <Mountains className="mx-auto mt-6 hidden opacity-70 md:block" width={240} />
         </div>
       </section>
 
       {/* teams */}
       <section className="mt-16 sm:mt-20">
         <div className="mb-6 flex items-baseline justify-between">
-          <h2 className="display flex items-center gap-3 text-3xl text-ink">
-            teams
-            <Hold size={26} rotate={12} color="#3b6fd6" />
-          </h2>
+          <h2 className="display text-3xl text-ink">teams</h2>
           <p className="font-mono text-xs text-dim">the robots i spend most weekends with</p>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
@@ -113,10 +109,7 @@ export default function Home() {
       {/* projects */}
       <section className="mt-16 sm:mt-20">
         <div className="mb-6 flex items-baseline justify-between">
-          <h2 className="display flex items-center gap-3 text-3xl text-ink">
-            things i&apos;ve built
-            <Hold size={26} rotate={-20} color="#f2c94c" />
-          </h2>
+          <h2 className="display text-3xl text-ink">things i&apos;ve built</h2>
           <a href={profile.links.github} target="_blank" rel="noreferrer" className="link-under font-mono text-xs text-dim hover:text-ink">
             more on github ↗
           </a>
@@ -159,10 +152,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <h2 className="display flex items-center gap-3 text-3xl text-ink">
-              shelf
-              <Carabiner size={18} />
-            </h2>
+            <h2 className="display text-3xl text-ink">shelf</h2>
             <ul className="mt-5 space-y-2 font-mono text-sm text-graphite">
               {honors.map((h) => (
                 <li key={h.title} className="flex justify-between gap-4 border-b border-line pb-2">
@@ -171,18 +161,12 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <Mountains className="ml-auto mt-6 opacity-60" width={200} />
           </div>
         </div>
       </section>
 
       {/* otherwise */}
       <section className="relative mt-16 border-t border-line pt-10 pb-6">
-        <div className="absolute right-2 top-8 hidden items-end gap-2 sm:flex" aria-hidden="true">
-          <Hold size={22} rotate={30} color="#d63b3b" />
-          <Crimp size={28} rotate={-10} color="#3f9a5a" />
-          <Hold size={30} rotate={-12} color="#3b6fd6" />
-        </div>
         <p className="font-mono text-xs tracking-[0.18em] text-teal">OTHERWISE</p>
         <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
           {interests.map((it) => (
