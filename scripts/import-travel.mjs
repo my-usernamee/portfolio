@@ -90,5 +90,24 @@ for (const [file, meta] of Object.entries(manifest)) {
 }
 
 entries.sort((a, b) => b.sort.localeCompare(a.sort));
+
+// prune published files that are no longer in the manifest (cover.jpg is set by hand)
+const keep = new Set(entries.map((e) => path.basename(e.src)).concat("cover.jpg"));
+for (const f of fs.readdirSync(outDir)) if (f.endsWith(".jpg") && !keep.has(f)) { fs.unlinkSync(path.join(outDir, f)); console.log(`pruned ${f}`); }
+
+// spread: keep newest-first feel but never put two photos from the same country side by side
+const cityKey = (e) => e.country + ":" + e.place.split(/[ ,]/)[0].toLowerCase();
+const spread = [];
+const pool = [...entries];
+while (pool.length) {
+  const lastCountries = spread.slice(-2).map((e) => e.country);
+  const lastCities = spread.slice(-4).map(cityKey);
+  let i = pool.findIndex((e) => !lastCountries.includes(e.country) && !lastCities.includes(cityKey(e)));
+  if (i < 0) i = pool.findIndex((e) => !lastCities.includes(cityKey(e)));
+  if (i < 0) i = 0;
+  spread.push(pool.splice(i, 1)[0]);
+}
+entries.length = 0;
+entries.push(...spread);
 fs.writeFileSync(dataPath, JSON.stringify(entries, null, 2) + "\n");
 console.log(`\nwrote ${entries.length} photos to ${path.relative(root, dataPath)}`);

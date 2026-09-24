@@ -1,28 +1,149 @@
 {
   "_readme": "One entry per photo. Keys are file names inside the input folder. 'slug' names the published file. place/country/year are only needed when the photo has no GPS/date metadata; anything set here overrides the metadata. 'seen' marks places identified by looking at the photo rather than from metadata.",
-  "13.jpg": { "slug": "agra-fort", "place": "Agra Fort", "country": "India", "seen": true },
-  "14.jpg": { "slug": "kandy-elephant", "place": "Kandy" },
-  "15.jpg": { "slug": "kl-towers", "place": "Kuala Lumpur", "country": "Malaysia", "seen": true },
-  "16.jpg": { "slug": "uttarakhand-dog", "place": "Uttarakhand trek", "country": "India", "seen": true },
-  "17.jpg": { "slug": "sydney-harbour", "place": "Sydney Harbour" },
-  "18.jpg": { "slug": "impression-lijiang", "place": "Impression Lijiang", "country": "China", "seen": true },
-  "19.jpg": { "slug": "limestone-crag", "place": "Limestone crag", "country": "Malaysia", "seen": true },
-  "20.jpg": { "slug": "snow-monkey", "place": "Jigokudani snow monkeys", "country": "Japan", "year": "2025", "seen": true },
-  "21.jpg": { "slug": "shenzhen", "place": "Shenzhen" },
-  "22.jpg": { "slug": "bondi", "place": "Bondi Beach", "country": "Australia", "seen": true },
-  "23.jpg": { "slug": "bondi-night", "place": "Bondi, after dark", "country": "Australia", "seen": true },
-  "24.jpg": { "slug": "opera-house", "place": "Sydney Opera House", "country": "Australia", "seen": true },
-  "25.jpg": { "slug": "reef-boat", "place": "Out on the reef", "country": "Australia", "seen": true },
-  "26.jpg": { "slug": "pekan-lama-cat", "place": "Ipoh old town", "country": "Malaysia", "seen": true },
-  "27.jpg": { "slug": "dali-pagodas", "place": "Three Pagodas, Dali", "country": "China", "seen": true },
-  "28.jpg": { "slug": "jade-dragon", "place": "Jade Dragon Snow Mountain", "country": "China", "seen": true },
-  "29.jpg": { "slug": "mumbai-taj" },
-  "30.jpg": { "slug": "sri-lanka-hills", "place": "Hill country", "country": "Sri Lanka", "seen": true },
-  "31.jpg": { "slug": "fuji-jeep", "place": "Fujiyoshida", "country": "Japan", "year": "2025", "seen": true },
-  "32.jpg": { "slug": "shibuya", "place": "Shibuya, Tokyo", "country": "Japan", "year": "2025", "seen": true },
-  "33.jpg": { "slug": "hakone", "place": "Lake Ashi, Hakone", "country": "Japan", "year": "2025", "seen": true },
-  "34.jpg": { "slug": "kanagawa-bus", "place": "Kanagawa coast", "country": "Japan", "year": "2025", "seen": true },
-  "35.jpg": { "slug": "snow-walk", "place": "Walking in the snow", "country": "Japan", "year": "2025", "seen": true },
-  "7.jpg": { "slug": "albert-park-train", "place": "Albert Park, Melbourne", "country": "Australia", "year": "2025", "seen": true },
-  "8.jpg": { "slug": "albert-park-porsche", "place": "Albert Park, Melbourne", "country": "Australia", "year": "2025", "seen": true }
+  "13.jpg": {
+    "slug": "agra-fort",
+    "place": "Agra Fort",
+    "country": "India",
+    "seen": true
+  },
+  "14.jpg": {
+    "slug": "kandy-elephant",
+    "place": "Kandy"
+  },
+  "15.jpg": {
+    "slug": "kl-towers",
+    "place": "Kuala Lumpur",
+    "country": "Malaysia",
+    "seen": true
+  },
+  "16.jpg": {
+    "slug": "uttarakhand-dog",
+    "place": "Uttarakhand trek",
+    "country": "India",
+    "seen": true
+  },
+  "17.jpg": {
+    "slug": "sydney-harbour",
+    "place": "Sydney Harbour"
+  },
+  "18.jpg": {
+    "slug": "impression-lijiang",
+    "place": "Impression Lijiang",
+    "country": "China",
+    "seen": true
+  },
+  "20.jpg": {
+    "slug": "snow-monkey",
+    "place": "Jigokudani snow monkeys",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "21.jpg": {
+    "slug": "shenzhen",
+    "place": "Shenzhen"
+  },
+  "22.jpg": {
+    "slug": "bondi",
+    "place": "Bondi Beach",
+    "country": "Australia",
+    "seen": true
+  },
+  "23.jpg": {
+    "slug": "bondi-night",
+    "place": "Bondi, after dark",
+    "country": "Australia",
+    "seen": true
+  },
+  "24.jpg": {
+    "slug": "opera-house",
+    "place": "Sydney Opera House",
+    "country": "Australia",
+    "seen": true
+  },
+  "25.jpg": {
+    "slug": "reef-boat",
+    "place": "Out on the reef",
+    "country": "Australia",
+    "seen": true
+  },
+  "26.jpg": {
+    "slug": "pekan-lama-cat",
+    "place": "Ipoh old town",
+    "country": "Malaysia",
+    "seen": true
+  },
+  "27.jpg": {
+    "slug": "dali-pagodas",
+    "place": "Three Pagodas, Dali",
+    "country": "China",
+    "seen": true
+  },
+  "28.jpg": {
+    "slug": "jade-dragon",
+    "place": "Jade Dragon Snow Mountain",
+    "country": "China",
+    "seen": true
+  },
+  "29.jpg": {
+    "slug": "mumbai-taj"
+  },
+  "30.jpg": {
+    "slug": "sri-lanka-hills",
+    "place": "Hill country",
+    "country": "Sri Lanka",
+    "seen": true
+  },
+  "31.jpg": {
+    "slug": "fuji-jeep",
+    "place": "Fujiyoshida",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "32.jpg": {
+    "slug": "shibuya",
+    "place": "Shibuya, Tokyo",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "33.jpg": {
+    "slug": "hakone",
+    "place": "Lake Ashi, Hakone",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "34.jpg": {
+    "slug": "kanagawa-bus",
+    "place": "Kanagawa coast",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "35.jpg": {
+    "slug": "snow-walk",
+    "place": "Walking in the snow",
+    "country": "Japan",
+    "year": "2025",
+    "seen": true
+  },
+  "37.png": {
+    "slug": "korea-dusk",
+    "place": "Busan, at dusk",
+    "country": "South Korea"
+  },
+  "38.png": {
+    "slug": "tungnath",
+    "place": "Tungnath temple"
+  },
+  "39.png": {
+    "slug": "chopta-sunset",
+    "place": "Chopta, last light"
+  },
+  "40.png": {
+    "slug": "chopta-himalaya",
+    "place": "Chopta, facing the Himalaya"
+  }
 }

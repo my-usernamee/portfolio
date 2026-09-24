@@ -22,9 +22,9 @@ export default function Climbing() {
             </div>
           ))}
         </dl>
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-3">
           {climbing.photos.map((p, i) => (
-            <figure key={p.src} className={`polaroid lift relative ${i ? "md:mt-12 md:-rotate-1" : "md:rotate-1"}`}>
+            <figure key={p.src} className={`polaroid lift relative ${["md:rotate-1", "md:mt-10 md:-rotate-1", "md:mt-4 md:rotate-[0.5deg]"][i]}`}>
               <span className="tape" />
               <div className="relative aspect-[3/4] w-full overflow-hidden">
                 <Photo src={p.src} alt={p.alt} className="h-full w-full object-cover" />

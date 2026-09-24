@@ -30,7 +30,7 @@ export const trips: Trip[] = [
   },
 ];
 
-export const wishlist = ["Suzuka", "Spa-Francorchamps", "Silverstone", "Monza"];
+export const wishlist = ["Monza", "Spa-Francorchamps", "Istanbul Park"];
 
 export const fan = {
   team: "Mercedes-AMG Petronas",

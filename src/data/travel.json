@@ -1,5 +1,16 @@
 [
   {
+    "slug": "korea-dusk",
+    "src": "/images/travel/korea-dusk.jpg",
+    "place": "Busan, at dusk",
+    "country": "South Korea",
+    "when": "Aug 2026",
+    "sort": "2026-08-23",
+    "source": "date",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "slug": "shenzhen",
     "src": "/images/travel/shenzhen.jpg",
     "place": "Shenzhen",
@@ -33,45 +44,12 @@
     "height": 1200
   },
   {
-    "slug": "agra-fort",
-    "src": "/images/travel/agra-fort.jpg",
-    "place": "Agra Fort",
-    "country": "India",
-    "when": "Dec 2025",
-    "sort": "2025-12-18",
-    "source": "date",
-    "width": 1200,
-    "height": 1600
-  },
-  {
     "slug": "kandy-elephant",
     "src": "/images/travel/kandy-elephant.jpg",
     "place": "Kandy",
     "country": "Sri Lanka",
     "when": "Apr 2025",
     "sort": "2025-04-30",
-    "source": "gps",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "slug": "sri-lanka-hills",
-    "src": "/images/travel/sri-lanka-hills.jpg",
-    "place": "Hill country",
-    "country": "Sri Lanka",
-    "when": "Apr 2025",
-    "sort": "2025-04-29",
-    "source": "date",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "slug": "mumbai-taj",
-    "src": "/images/travel/mumbai-taj.jpg",
-    "place": "Mumbai",
-    "country": "India",
-    "when": "Apr 2025",
-    "sort": "2025-04-13",
     "source": "gps",
     "width": 1200,
     "height": 1600
@@ -88,6 +66,28 @@
     "height": 1600
   },
   {
+    "slug": "tungnath",
+    "src": "/images/travel/tungnath.jpg",
+    "place": "Tungnath temple",
+    "country": "India",
+    "when": "Dec 2025",
+    "sort": "2025-12-24",
+    "source": "gps",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "slug": "sri-lanka-hills",
+    "src": "/images/travel/sri-lanka-hills.jpg",
+    "place": "Hill country",
+    "country": "Sri Lanka",
+    "when": "Apr 2025",
+    "sort": "2025-04-29",
+    "source": "date",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "slug": "sydney-harbour",
     "src": "/images/travel/sydney-harbour.jpg",
     "place": "Sydney Harbour",
@@ -99,14 +99,25 @@
     "height": 1600
   },
   {
-    "slug": "opera-house",
-    "src": "/images/travel/opera-house.jpg",
-    "place": "Sydney Opera House",
-    "country": "Australia",
-    "when": "Mar 2025",
-    "sort": "2025-03-12",
-    "source": "date",
-    "width": 900,
+    "slug": "chopta-sunset",
+    "src": "/images/travel/chopta-sunset.jpg",
+    "place": "Chopta, last light",
+    "country": "India",
+    "when": "Dec 2025",
+    "sort": "2025-12-23",
+    "source": "gps",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "slug": "snow-monkey",
+    "src": "/images/travel/snow-monkey.jpg",
+    "place": "Jigokudani snow monkeys",
+    "country": "Japan",
+    "when": "2025",
+    "sort": "2025-00-00",
+    "source": "seen",
+    "width": 1066,
     "height": 1600
   },
   {
@@ -121,25 +132,14 @@
     "height": 900
   },
   {
-    "slug": "bondi-night",
-    "src": "/images/travel/bondi-night.jpg",
-    "place": "Bondi, after dark",
-    "country": "Australia",
-    "when": "Mar 2025",
-    "sort": "2025-03-09",
+    "slug": "agra-fort",
+    "src": "/images/travel/agra-fort.jpg",
+    "place": "Agra Fort",
+    "country": "India",
+    "when": "Dec 2025",
+    "sort": "2025-12-18",
     "source": "date",
-    "width": 1600,
-    "height": 900
-  },
-  {
-    "slug": "snow-monkey",
-    "src": "/images/travel/snow-monkey.jpg",
-    "place": "Jigokudani snow monkeys",
-    "country": "Japan",
-    "when": "2025",
-    "sort": "2025-00-00",
-    "source": "seen",
-    "width": 1066,
+    "width": 1200,
     "height": 1600
   },
   {
@@ -154,6 +154,28 @@
     "height": 1600
   },
   {
+    "slug": "opera-house",
+    "src": "/images/travel/opera-house.jpg",
+    "place": "Sydney Opera House",
+    "country": "Australia",
+    "when": "Mar 2025",
+    "sort": "2025-03-12",
+    "source": "date",
+    "width": 900,
+    "height": 1600
+  },
+  {
+    "slug": "chopta-himalaya",
+    "src": "/images/travel/chopta-himalaya.jpg",
+    "place": "Chopta, facing the Himalaya",
+    "country": "India",
+    "when": "Dec 2025",
+    "sort": "2025-12-23",
+    "source": "gps",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "slug": "shibuya",
     "src": "/images/travel/shibuya.jpg",
     "place": "Shibuya, Tokyo",
@@ -165,12 +187,56 @@
     "height": 1066
   },
   {
+    "slug": "bondi-night",
+    "src": "/images/travel/bondi-night.jpg",
+    "place": "Bondi, after dark",
+    "country": "Australia",
+    "when": "Mar 2025",
+    "sort": "2025-03-09",
+    "source": "date",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "slug": "mumbai-taj",
+    "src": "/images/travel/mumbai-taj.jpg",
+    "place": "Mumbai",
+    "country": "India",
+    "when": "Apr 2025",
+    "sort": "2025-04-13",
+    "source": "gps",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "slug": "hakone",
     "src": "/images/travel/hakone.jpg",
     "place": "Lake Ashi, Hakone",
     "country": "Japan",
     "when": "2025",
     "sort": "2025-00-00",
+    "source": "seen",
+    "width": 1066,
+    "height": 1600
+  },
+  {
+    "slug": "kl-towers",
+    "src": "/images/travel/kl-towers.jpg",
+    "place": "Kuala Lumpur",
+    "country": "Malaysia",
+    "when": "Dec 2024",
+    "sort": "2024-12-09",
+    "source": "date",
+    "width": 1600,
+    "height": 1200
+  },
+  {
+    "slug": "impression-lijiang",
+    "src": "/images/travel/impression-lijiang.jpg",
+    "place": "Impression Lijiang",
+    "country": "China",
+    "when": "",
+    "sort": "0000-00-00",
     "source": "seen",
     "width": 1066,
     "height": 1600
@@ -193,61 +259,6 @@
     "country": "Japan",
     "when": "2025",
     "sort": "2025-00-00",
-    "source": "seen",
-    "width": 1066,
-    "height": 1600
-  },
-  {
-    "slug": "albert-park-train",
-    "src": "/images/travel/albert-park-train.jpg",
-    "place": "Albert Park, Melbourne",
-    "country": "Australia",
-    "when": "2025",
-    "sort": "2025-00-00",
-    "source": "seen",
-    "width": 1600,
-    "height": 1066
-  },
-  {
-    "slug": "albert-park-porsche",
-    "src": "/images/travel/albert-park-porsche.jpg",
-    "place": "Albert Park, Melbourne",
-    "country": "Australia",
-    "when": "2025",
-    "sort": "2025-00-00",
-    "source": "seen",
-    "width": 1600,
-    "height": 1066
-  },
-  {
-    "slug": "kl-towers",
-    "src": "/images/travel/kl-towers.jpg",
-    "place": "Kuala Lumpur",
-    "country": "Malaysia",
-    "when": "Dec 2024",
-    "sort": "2024-12-09",
-    "source": "date",
-    "width": 1600,
-    "height": 1200
-  },
-  {
-    "slug": "limestone-crag",
-    "src": "/images/travel/limestone-crag.jpg",
-    "place": "Limestone crag",
-    "country": "Malaysia",
-    "when": "Dec 2024",
-    "sort": "2024-12-08",
-    "source": "date",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "slug": "impression-lijiang",
-    "src": "/images/travel/impression-lijiang.jpg",
-    "place": "Impression Lijiang",
-    "country": "China",
-    "when": "",
-    "sort": "0000-00-00",
     "source": "seen",
     "width": 1066,
     "height": 1600
