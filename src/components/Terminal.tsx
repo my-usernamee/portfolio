@@ -1,14 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/profile";
 
 // Hidden terminal. Press ` (backtick) anywhere on a keyboard device. Type help, or click a command.
 const PAGES: Record<string, string> = { home: "/", "~": "/", writing: "/writing", interests: "/interests", climbing: "/climbing", f1: "/f1", photos: "/photos", travel: "/photos" };
 const LINKS: Record<string, string> = { github: profile.links.github, linkedin: profile.links.linkedin, medium: profile.links.medium, deepspeed: profile.links.team, mecatron: profile.links.mecatron, insta: "https://www.instagram.com/justgoupbruh" };
-const CHIPS = ["help", "ls", "cd climbing", "cd f1", "cat resume", "open github", "whoami", "lap", "box"];
-const COMMANDS = ["help", "ls", "cd", "cat", "open", "whoami", "lap", "box", "clear", "exit"];
+const CHIPS = ["help", "race", "ls", "cd climbing", "cd f1", "cat resume", "open github", "whoami", "lap", "box"];
+const COMMANDS = ["help", "race", "ls", "cd", "cat", "open", "whoami", "lap", "box", "clear", "exit"];
 
 type Line = { text: string; kind?: "in" | "out" | "err" | "hl" };
 
@@ -20,7 +19,6 @@ export default function Terminal() {
   const [hIdx, setHIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return; // no keyboard, no terminal
@@ -63,6 +61,7 @@ export default function Terminal() {
           { text: "cat resume      open the resume" },
           { text: "open <site>     github · linkedin · medium · deepspeed · mecatron · insta" },
           { text: "whoami          who is this" },
+          { text: "race            drive the car yourself. ↑ ↓, down and back is a lap" },
           { text: "lap             a lap of the site" },
           { text: "box             box box box" },
           { text: "clear · exit    the usual" },
@@ -76,7 +75,7 @@ export default function Terminal() {
         if (!to) print({ text: `cd: no such page: ${arg}`, kind: "err" });
         else {
           print({ text: `→ ${to}` });
-          router.push(to);
+          window.dispatchEvent(new CustomEvent("hari:navigate", { detail: to }));
         }
         break;
       }
@@ -100,6 +99,11 @@ export default function Terminal() {
         break;
       case "lap":
         print({ text: "lap 1 · sector 1 home 🟩 · sector 2 photos 🟩 · sector 3 climbing 🟪 · 1:23.456" }, { text: "purple in sector 3. obviously." });
+        break;
+      case "race":
+        print({ text: "lights out. ↑ ↓ to drive, down to the bottom and back up is one lap. esc to quit.", kind: "hl" });
+        setOpen(false);
+        window.dispatchEvent(new CustomEvent("hari:race"));
         break;
       case "box":
         print({ text: "box box box." }, { text: "…" }, { text: "no, stay out. stay out." });

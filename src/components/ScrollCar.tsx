@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CarSvg({ className = "" }: { className?: string }) {
   // top-down F1 car, nose pointing down the page
@@ -68,11 +68,109 @@ export default function ScrollCar() {
   const hSvg = useRef<SVGSVGElement>(null);
   const hCar = useRef<HTMLDivElement>(null);
 
+  const hudRef = useRef<HTMLDivElement>(null);
+  const [racing, setRacing] = useState(false);
+  const racingRef = useRef(false);
+
   useEffect(() => {
     let raf = 0;
     let vLen = 0;
     let hLen = 0;
     const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
+
+    // ---- race mode: arrow keys drive the car up and down the road, a lap is down and back ----
+    const race = { p: 0, v: 0, up: false, down: false, t0: 0, reachedBottom: false, best: 0, last: 0, lastFrame: 0, loop: 0, note: "", noteUntil: 0 };
+    try {
+      race.best = Number(localStorage.getItem("hari-best-lap") ?? 0) || 0;
+    } catch {
+      /* ignore */
+    }
+    const fmt = (ms: number) => `${Math.floor(ms / 60000)}:${String(Math.floor((ms % 60000) / 1000)).padStart(2, "0")}.${String(Math.floor((ms % 1000) / 10)).padStart(2, "0")}`;
+    const hud = (msg?: string) => {
+      const el = hudRef.current;
+      if (!el) return;
+      const now = race.t0 ? performance.now() - race.t0 : 0;
+      el.querySelector("[data-lap]")!.textContent = race.t0 ? fmt(now) : "0:00.00";
+      el.querySelector("[data-best]")!.textContent = race.best ? fmt(race.best) : "--:--.--";
+      if (msg) { race.note = msg; race.noteUntil = performance.now() + 4000; }
+      const note = performance.now() < race.noteUntil ? race.note : "";
+      el.querySelector("[data-msg]")!.textContent = note || (race.t0 ? (race.reachedBottom ? "now back to the top" : "to the bottom…") : "↑ ↓ to drive · esc to quit");
+    };
+    const tick = (now: number) => {
+      if (!racingRef.current) return;
+      const dt = Math.min(0.05, (now - (race.lastFrame || now)) / 1000);
+      race.lastFrame = now;
+      const ACC = 1.6, MAX = 0.9, DRAG = 2.4;
+      if (race.down) race.v += ACC * dt;
+      if (race.up) race.v -= ACC * dt;
+      if (!race.down && !race.up) race.v -= race.v * DRAG * dt;
+      race.v = Math.max(-MAX, Math.min(MAX, race.v));
+      let p = race.p + race.v * dt;
+      if (p <= 0) { p = 0; if (race.v < 0) race.v = 0; }
+      if (p >= 1) { p = 1; if (race.v > 0) race.v = 0; }
+      if (!race.t0 && p > 0.01) race.t0 = now;
+      if (race.t0 && p >= 0.985) race.reachedBottom = true;
+      let msg: string | undefined;
+      if (race.t0 && race.reachedBottom && p <= 0.015) {
+        race.last = now - race.t0;
+        const pb = !race.best || race.last < race.best;
+        if (pb) {
+          race.best = race.last;
+          try { localStorage.setItem("hari-best-lap", String(Math.round(race.best))); } catch { /* ignore */ }
+        }
+        msg = `${fmt(race.last)}${pb ? " · new best!" : ""} · again?`;
+        race.t0 = 0;
+        race.reachedBottom = false;
+        race.v = 0;
+      }
+      race.p = p;
+      if (vCar.current && vPath.current && vLen) {
+        const y = window.innerHeight * (0.12 + 0.76 * p);
+        place(vCar.current, vPath.current, vLen, lengthAt(vPath.current, vLen, "y", y), 1 + Math.abs(race.v) * 0.08);
+      }
+      hud(msg);
+      race.loop = requestAnimationFrame(tick);
+    };
+    const startRace = () => {
+      if (!isDesktop() || racingRef.current) return;
+      racingRef.current = true;
+      setRacing(true);
+      race.p = 0; race.v = 0; race.t0 = 0; race.reachedBottom = false; race.lastFrame = 0;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      hud();
+      race.loop = requestAnimationFrame(tick);
+    };
+    const stopRace = () => {
+      if (!racingRef.current) return;
+      racingRef.current = false;
+      setRacing(false);
+      cancelAnimationFrame(race.loop);
+      race.up = race.down = false;
+      update();
+    };
+    const toggleRace = () => (racingRef.current ? stopRace() : startRace());
+    const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    let konami: string[] = [];
+    const onKeyDown = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      const typing = t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable;
+      if (!typing) {
+        konami = [...konami, e.key.length === 1 ? e.key.toLowerCase() : e.key].slice(-KONAMI.length);
+        if (KONAMI.every((k, i) => konami[i] === k)) { konami = []; startRace(); }
+      }
+      if (!racingRef.current) return;
+      if (e.key === "ArrowDown") { race.down = true; e.preventDefault(); }
+      else if (e.key === "ArrowUp") { race.up = true; e.preventDefault(); }
+      else if (e.key === "Escape") stopRace();
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") race.down = false;
+      if (e.key === "ArrowUp") race.up = false;
+    };
+    const onRaceEvent = () => toggleRace();
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("hari:race", onRaceEvent);
 
     const build = () => {
       const vh = window.innerHeight;
@@ -115,6 +213,7 @@ export default function ScrollCar() {
 
     const update = () => {
       raf = 0;
+      if (racingRef.current) return;
       const p = progress();
       if (isDesktop()) {
         if (vCar.current && vPath.current && vLen) {
@@ -141,7 +240,11 @@ export default function ScrollCar() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("hari:race", onRaceEvent);
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(race.loop);
     };
   }, []);
 
@@ -160,6 +263,23 @@ export default function ScrollCar() {
         <div ref={vCar} className="car">
           <CarSvg />
         </div>
+      </div>
+      {/* race mode HUD */}
+      <div ref={hudRef} className={`race-hud ${racing ? "is-on" : ""}`} aria-live="polite" aria-hidden={!racing}>
+        <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-teal-bright">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-bright" /> RACE MODE
+        </div>
+        <div className="mt-1 flex gap-4">
+          <span>
+            <span className="text-paper/50">LAP </span>
+            <span data-lap className="text-paper">0:00.00</span>
+          </span>
+          <span>
+            <span className="text-paper/50">BEST </span>
+            <span data-best className="text-teal-bright">--:--.--</span>
+          </span>
+        </div>
+        <div data-msg className="mt-1 text-[10px] text-paper/60">↑ ↓ to drive · esc to quit</div>
       </div>
       {/* mobile: horizontal road along the bottom */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 bottom-0 z-40 lg:hidden" style={{ height: ROAD_H }}>

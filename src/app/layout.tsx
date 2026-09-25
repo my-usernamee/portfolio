@@ -7,6 +7,7 @@ import ScrollCar from "@/components/ScrollCar";
 import RobotGate from "@/components/RobotGate";
 import Cursor from "@/components/Cursor";
 import Terminal from "@/components/Terminal";
+import PageWipe from "@/components/PageWipe";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="grain min-h-full flex flex-col" suppressHydrationWarning>
         <Cursor />
         <Terminal />
+        <PageWipe />
         <RobotGate />
         <SiteNav />
         <ScrollCar />
