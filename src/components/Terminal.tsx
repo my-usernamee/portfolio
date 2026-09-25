@@ -13,7 +13,7 @@ type Line = { text: string; kind?: "in" | "out" | "err" | "hl" };
 
 export default function Terminal() {
   const [open, setOpen] = useState(false);
-  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help, hit tab to complete, or click a command below", kind: "hl" }]);
+  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help, hit tab to complete, click a command below, q to close", kind: "hl" }]);
   const [input, setInput] = useState("");
   const [hist, setHist] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
@@ -25,8 +25,8 @@ export default function Terminal() {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement;
       const typing = t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable;
-      const inTerminal = !!t.closest("[aria-label=terminal]");
-      if (e.key === "`" && (!typing || inTerminal)) {
+      // "/" or "`" opens it from anywhere; inside, type q (or esc) to close
+      if ((e.key === "/" || e.key === "`") && !typing) {
         e.preventDefault();
         setOpen((o) => !o);
       } else if (e.key === "Escape") setOpen(false);
@@ -64,7 +64,7 @@ export default function Terminal() {
           { text: "race            drive the car yourself. ↑ ↓, down and back is a lap" },
           { text: "lap             a lap of the site" },
           { text: "box             box box box" },
-          { text: "clear · exit    the usual" },
+          { text: "clear · q       the usual" },
         );
         break;
       case "ls":
@@ -140,7 +140,7 @@ export default function Terminal() {
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-teal-bright" /> HARI.SH
             </span>
-            <span>` or esc to close</span>
+            <span>type q to close</span>
           </div>
           <div ref={bodyRef} className="max-h-64 overflow-y-auto px-3 py-2 font-mono text-xs leading-relaxed">
             {lines.map((l, i) => (

@@ -25,6 +25,22 @@ export function CarSvg({ className = "" }: { className?: string }) {
   );
 }
 
+export function SubSvg({ className = "" }: { className?: string }) {
+  // top-down submarine, nose pointing down the page, same footprint as the car
+  return (
+    <svg viewBox="0 0 44 84" width="44" height="84" className={className} aria-hidden="true">
+      <g stroke="var(--ink)" strokeWidth="1.5" fill="#3b6fd6" strokeLinejoin="round">
+        <path d="M22 4 C34 4 36 22 36 40 V62 C36 72 30 78 22 78 C14 78 8 72 8 62 V40 C8 22 10 4 22 4 Z" />
+        <rect x="16" y="26" width="12" height="18" rx="4" fill="#2f5bb5" />
+        <circle cx="22" cy="20" r="3" fill="var(--teal-bright)" />
+        <path d="M2 50 L8 46 V58 L2 54 Z M42 50 L36 46 V58 L42 54 Z" fill="#2f5bb5" />
+        <path d="M18 78 L26 78 L24 84 L20 84 Z" fill="var(--ink)" />
+        <path d="M22 26 V12" />
+      </g>
+    </svg>
+  );
+}
+
 const ROAD_W = 96; // vertical road column width (desktop)
 const ROAD_H = 44; // horizontal road strip height (mobile)
 const AMP_V = 15;
@@ -70,6 +86,13 @@ export default function ScrollCar() {
 
   const hudRef = useRef<HTMLDivElement>(null);
   const [racing, setRacing] = useState(false);
+  const [diving, setDiving] = useState(false);
+  useEffect(() => {
+    const t = () => setDiving(document.documentElement.classList.contains("dive"));
+    const mo = new MutationObserver(t);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => mo.disconnect();
+  }, []);
   const racingRef = useRef(false);
 
   useEffect(() => {
@@ -261,7 +284,7 @@ export default function ScrollCar() {
           <use href="#road-v" className="road-centre" />
         </svg>
         <div ref={vCar} className="car">
-          <CarSvg />
+          {diving ? <SubSvg /> : <CarSvg />}
         </div>
       </div>
       {/* race mode HUD */}
@@ -292,7 +315,7 @@ export default function ScrollCar() {
           <use href="#road-h" className="road-centre" />
         </svg>
         <div ref={hCar} className="car">
-          <CarSvg />
+          {diving ? <SubSvg /> : <CarSvg />}
         </div>
       </div>
     </>

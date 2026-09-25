@@ -5,6 +5,7 @@ import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import { NextRaceLine } from "@/components/NextRace";
 import Reveal from "@/components/Reveal";
+import { DeepSpeedDemoButton, DiveButton } from "@/components/TeamExtras";
 import { getNextRace } from "@/lib/f1";
 import { honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
 
@@ -66,7 +67,7 @@ export default async function Home() {
           </figure>
           <p className="psst mx-auto mt-3 hidden max-w-[300px] justify-end md:ml-auto md:mr-2 md:flex" aria-hidden="true">
             <span className="psst-note">
-              psst. press <kbd>`</kbd> for a fun surprise
+              psst. press <kbd>/</kbd> for a fun surprise
             </span>
           </p>
         </div>
@@ -109,6 +110,12 @@ export default async function Home() {
                         {tag}
                       </span>
                     ))}
+                  </div>
+                  <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-line pt-4">
+                    {t.slug === "deepspeed" ? <DeepSpeedDemoButton /> : <DiveButton />}
+                    <a href={t.link} target="_blank" rel="noreferrer" className="link-under font-mono text-xs text-graphite hover:text-ink">
+                      team site ↗
+                    </a>
                   </div>
                 </div>
               </article>
