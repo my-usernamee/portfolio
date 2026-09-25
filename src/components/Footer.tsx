@@ -6,7 +6,9 @@ export default function Footer() {
     <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-10 font-mono text-xs text-dim sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:pl-28">
       <p>
         © {year} hari · built with next.js, too much teal
-        <span className="hidden md:inline"> · press <kbd className="rounded border border-line-strong px-1 text-ink">/</kbd> for a fun surprise</span>
+        <span className="hidden md:inline">
+          {" "}· <span className="hl">press <kbd className="rounded border border-line-strong bg-paper px-1 text-teal">/</kbd> for a fun surprise</span>
+        </span>
       </p>
       <ul className="flex flex-wrap gap-x-5 gap-y-2">
         {[

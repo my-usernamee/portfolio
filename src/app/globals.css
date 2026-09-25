@@ -335,6 +335,41 @@ html.has-cursor .cursor-glyph { display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .psst-note { animation: none; } }
 
+/* rain: streaks over the road column (desktop) or the bottom strip (phone), and a wet sheen on the tarmac */
+.rain-layer { position: fixed; z-index: 41; pointer-events: none; overflow: hidden; display: none; }
+.rain-v { inset-y: 0; left: 0; width: 96px; top: 0; bottom: 0; }
+.rain-h { inset-x: 0; bottom: 0; height: 44px; left: 0; right: 0; }
+.rain-layer span {
+  position: absolute; top: -20px; width: 1px; height: 14px;
+  background: linear-gradient(to bottom, rgba(0, 149, 143, 0), rgba(0, 149, 143, 0.75));
+  transform: rotate(8deg);
+  animation: rain-fall linear infinite;
+}
+.rain-h span { height: 10px; }
+@keyframes rain-fall { from { transform: translateY(0) rotate(8deg); } to { transform: translateY(110vh) rotate(8deg); } }
+.rain-h span { animation-name: rain-fall-short; }
+@keyframes rain-fall-short { from { transform: translateY(-10px) rotate(8deg); } to { transform: translateY(60px) rotate(8deg); } }
+@media (min-width: 1024px) { .rain-v { display: block; } }
+@media (max-width: 1023px) { .rain-h { display: block; } }
+html.rain .road-surface, html.rain .road-surface-sm { stroke: #d9d6cf; }
+html.rain .road-edge, html.rain .road-edge-sm { stroke: rgba(21, 23, 26, 0.42); }
+html.rain .car svg { filter: drop-shadow(0 5px 8px rgba(21, 23, 26, 0.2)) drop-shadow(0 0 6px rgba(0, 210, 190, 0.25)); }
+@media (prefers-reduced-motion: reduce) { .rain-layer span { animation: none; } }
+
+/* weather chip beside the road */
+.weather-chip {
+  position: fixed; z-index: 42; pointer-events: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.55rem;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--graphite); background: var(--paper-2); border: 1px solid var(--line);
+  box-shadow: 1px 2px 0 rgba(21, 23, 26, 0.08);
+  left: 12px; bottom: 56px;
+}
+.weather-chip.is-wet { color: var(--teal); border-color: rgba(0, 149, 143, 0.45); }
+@media (min-width: 1024px) { .weather-chip { left: 104px; bottom: 20px; } }
+@media (max-width: 1023px) { .weather-chip { display: none; } }
+
 /* dive mode */
 html.dive { --paper: #e9f1f0; --paper-2: #dfeae8; --paper-3: #cfdedb; --line: rgba(10, 60, 70, 0.14); --line-strong: rgba(10, 60, 70, 0.35); }
 html.dive body { background: var(--paper); }

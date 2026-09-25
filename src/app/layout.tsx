@@ -10,6 +10,7 @@ import Terminal from "@/components/Terminal";
 import PageWipe from "@/components/PageWipe";
 import LidarPlayground from "@/components/LidarPlayground";
 import DiveMode from "@/components/DiveMode";
+import Weather from "@/components/Weather";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <PageWipe />
         <LidarPlayground />
         <DiveMode />
+        <Weather />
         <RobotGate />
         <SiteNav />
         <ScrollCar />
