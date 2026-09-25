@@ -101,7 +101,7 @@ export default function Terminal() {
         print({ text: "lap 1 · sector 1 home 🟩 · sector 2 photos 🟩 · sector 3 climbing 🟪 · 1:23.456" }, { text: "purple in sector 3. obviously." });
         break;
       case "race":
-        print({ text: "lights out. ↑ ↓ to drive, down to the bottom and back up is one lap. esc to quit.", kind: "hl" });
+        print({ text: "lights out. ↑ ↓ to drive, down to the bottom and back up is one lap. q to quit.", kind: "hl" });
         setOpen(false);
         window.dispatchEvent(new CustomEvent("hari:race"));
         break;
@@ -161,6 +161,7 @@ export default function Terminal() {
               <span className="relative flex-1 whitespace-pre text-paper">
                 <span aria-hidden="true">{input}</span>
                 <span aria-hidden="true" className="term-caret" />
+                {!input && <span aria-hidden="true" className="term-ghost">type race</span>}
                 <input
                   ref={inputRef}
                   value={input}

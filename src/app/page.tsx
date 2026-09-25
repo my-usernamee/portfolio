@@ -64,7 +64,7 @@ export default async function Home() {
               <span className="display text-sm text-ink">{photo.caption}</span>
             </figcaption>
           </figure>
-          <p className="psst mx-auto mt-5 hidden max-w-[300px] justify-end md:ml-auto md:mr-2 md:flex" aria-hidden="true">
+          <p className="psst mx-auto mt-3 hidden max-w-[300px] justify-end md:ml-auto md:mr-2 md:flex" aria-hidden="true">
             <span className="psst-note">
               psst. press <kbd>`</kbd> for a fun surprise
             </span>

@@ -272,6 +272,7 @@ html.has-cursor .cursor-glyph { display: block; }
   animation: term-blink 1s steps(1) infinite;
 }
 @keyframes term-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.term-ghost { margin-left: 0.4em; color: rgba(244, 241, 235, 0.3); }
 .term-chip {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -295,17 +296,30 @@ html.has-cursor .cursor-glyph { display: block; }
   background: var(--paper-2);
   border: 1px solid var(--line);
   box-shadow: 1px 2px 0 rgba(21, 23, 26, 0.08);
+  margin-top: 22px;
+  transform-origin: 50% -22px;
   transform: rotate(-1.5deg);
-  animation: psst-float 4.5s ease-in-out infinite;
+  animation: psst-swing 5s ease-in-out infinite;
 }
 .psst-note::before {
   content: "";
   position: absolute;
-  top: -9px;
+  top: -22px;
   left: 50%;
   width: 1px;
-  height: 9px;
+  height: 22px;
   background: var(--line-strong);
+}
+.psst-note::after {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--teal-bright);
+  border: 1px solid var(--ink);
 }
 .psst-note kbd {
   padding: 0 0.35rem;
@@ -315,9 +329,9 @@ html.has-cursor .cursor-glyph { display: block; }
   color: var(--teal);
   font-weight: 600;
 }
-@keyframes psst-float {
-  0%, 100% { transform: rotate(-1.5deg) translateY(0); }
-  50% { transform: rotate(-0.5deg) translateY(-3px); }
+@keyframes psst-swing {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(1.2deg); }
 }
 @media (prefers-reduced-motion: reduce) { .psst-note { animation: none; } }
 

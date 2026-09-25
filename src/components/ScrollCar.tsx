@@ -94,7 +94,7 @@ export default function ScrollCar() {
       el.querySelector("[data-best]")!.textContent = race.best ? fmt(race.best) : "--:--.--";
       if (msg) { race.note = msg; race.noteUntil = performance.now() + 4000; }
       const note = performance.now() < race.noteUntil ? race.note : "";
-      el.querySelector("[data-msg]")!.textContent = note || (race.t0 ? (race.reachedBottom ? "now back to the top" : "to the bottom…") : "↑ ↓ to drive · esc to quit");
+      el.querySelector("[data-msg]")!.textContent = note || (race.t0 ? (race.reachedBottom ? "now back to the top" : "to the bottom…") : "↑ ↓ to drive · q to quit");
     };
     const tick = (now: number) => {
       if (!racingRef.current) return;
@@ -161,7 +161,7 @@ export default function ScrollCar() {
       if (!racingRef.current) return;
       if (e.key === "ArrowDown") { race.down = true; e.preventDefault(); }
       else if (e.key === "ArrowUp") { race.up = true; e.preventDefault(); }
-      else if (e.key === "Escape") stopRace();
+      else if (e.key === "q" || e.key === "Q" || e.key === "`" || e.key === "Escape") { e.preventDefault(); stopRace(); }
     };
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") race.down = false;
@@ -279,7 +279,7 @@ export default function ScrollCar() {
             <span data-best className="text-teal-bright">--:--.--</span>
           </span>
         </div>
-        <div data-msg className="mt-1 text-[10px] text-paper/60">↑ ↓ to drive · esc to quit</div>
+        <div data-msg className="mt-1 text-[10px] text-paper/60">↑ ↓ to drive · q to quit</div>
       </div>
       {/* mobile: horizontal road along the bottom */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 bottom-0 z-40 lg:hidden" style={{ height: ROAD_H }}>
