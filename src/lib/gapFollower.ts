@@ -73,21 +73,22 @@ export function respawn(track: Track, car: Car, obs: Obstacle[], now: number) {
   car.v = 0; car.crashes++; car.crashedAt = now; car.lastIdx = back;
 }
 
+export type Seg = [Pt, Pt];
+export type Pose = { x: number; y: number; h: number };
+
 export type Sense = { dists: number[]; plan: number[]; angs: number[]; minFront: number; ahead: Pt; lineRel: number; bestStart: number; bestLen: number; target: number; mode: "line" | "gap" };
 
-// One planning step: sense, choose a heading. Doesn't move the car.
-export function plan(track: Track, car: Car, obs: Obstacle[]): Sense {
-  const m = track.centre.length;
+// Generic planning step: sense with rays against walls and circles, then choose a heading toward `aim`.
+// Pure pursuit when the cone toward the aim point is clear, follow-the-gap when something blocks it.
+export function planTowards(pose: Pose, walls: Seg[], obs: Obstacle[], aim: Pt, range = RANGE): Sense {
+  const car = pose;
   const dists: number[] = [], planD: number[] = [], angs: number[] = [];
   let minFront = Infinity;
   for (let r = 0; r < RAYS; r++) {
     const rel = -FOV / 2 + (FOV * r) / (RAYS - 1);
     const a = car.h + rel, dx = Math.cos(a), dy = Math.sin(a);
-    let t = RANGE;
-    for (let k = 0; k < m; k++) {
-      const l1 = raySeg(car.x, car.y, dx, dy, track.left[k], track.left[(k + 1) % m]); if (l1 < t) t = l1;
-      const r1 = raySeg(car.x, car.y, dx, dy, track.right[k], track.right[(k + 1) % m]); if (r1 < t) t = r1;
-    }
+    let t = range;
+    for (const [p, q] of walls) { const w = raySeg(car.x, car.y, dx, dy, p, q); if (w < t) t = w; }
     let tp = t;
     for (const o of obs) {
       const oc = rayCircle(car.x, car.y, dx, dy, o, o.r); if (oc < t) t = oc;
@@ -96,11 +97,8 @@ export function plan(track: Track, car: Car, obs: Obstacle[]): Sense {
     dists.push(t); planD.push(Math.min(t, tp)); angs.push(rel);
     if (Math.abs(rel) < TUNE.frontCone && tp < minFront) minFront = tp;
   }
-  const ni = nearestIdx(track, car.x, car.y);
-  const ahead = track.centre[(ni + TUNE.lookAhead) % m];
-  const tn = track.centre[(ni + 1) % m], tp = track.centre[(ni - 1 + m) % m];
-  const th = Math.atan2(tn.y - tp.y, tn.x - tp.x);
-  const cross = -Math.sin(th) * (car.x - track.centre[ni].x) + Math.cos(th) * (car.y - track.centre[ni].y);
+  const ahead = aim;
+  const cross = 0;
   let lineRel = Math.atan2(ahead.y - car.y, ahead.x - car.x) - car.h;
   while (lineRel > Math.PI) lineRel -= 2 * Math.PI;
   while (lineRel < -Math.PI) lineRel += 2 * Math.PI;
@@ -137,20 +135,105 @@ export function plan(track: Track, car: Car, obs: Obstacle[]): Sense {
   return { dists, plan: planD, angs, minFront, ahead, lineRel, bestStart, bestLen, target, mode };
 }
 
+let wallCache: { track: Track; walls: Seg[] } | null = null;
+export function trackWalls(track: Track): Seg[] {
+  if (wallCache?.track === track) return wallCache.walls;
+  const m = track.centre.length;
+  const walls: Seg[] = [];
+  for (let k = 0; k < m; k++) { walls.push([track.left[k], track.left[(k + 1) % m]]); walls.push([track.right[k], track.right[(k + 1) % m]]); }
+  wallCache = { track, walls };
+  return walls;
+}
+
+// The car on the track: aim at a look-ahead point on the centre line.
+export function plan(track: Track, car: Car, obs: Obstacle[]): Sense {
+  const m = track.centre.length;
+  const ni = nearestIdx(track, car.x, car.y);
+  return planTowards(car, trackWalls(track), obs, track.centre[(ni + TUNE.lookAhead) % m]);
+}
+
+// Move any pose for dt seconds using a plan. Returns the new speed. No lap/crash bookkeeping.
+export function move(pose: Pose & { v: number }, sense: Sense, dt: number, vMax = TUNE.vMax) {
+  const urgency = sense.minFront < 70 ? 1.8 : 1;
+  const steerRate = TUNE.steerRate * urgency;
+  pose.h += Math.max(-steerRate * dt, Math.min(steerRate * dt, sense.target * TUNE.steerGain * urgency * dt));
+  const vTarget = Math.max(TUNE.vMin, Math.min(vMax, (sense.minFront - TUNE.clear) * TUNE.vGain)) * (1 - Math.min(0.65, Math.abs(sense.target) * 1.3));
+  pose.v += (vTarget - pose.v) * Math.min(1, dt * (vTarget < pose.v ? 5 : 1.8));
+  pose.x += Math.cos(pose.h) * pose.v * dt;
+  pose.y += Math.sin(pose.h) * pose.v * dt;
+}
+
 // Move the car for dt seconds using a plan. Returns true if it crashed (and respawned).
 export function step(track: Track, car: Car, obs: Obstacle[], sense: Sense, dt: number, now: number): boolean {
   const m = track.centre.length;
-  const urgency = sense.minFront < 70 ? 1.8 : 1;
-  const steerRate = TUNE.steerRate * urgency;
-  car.h += Math.max(-steerRate * dt, Math.min(steerRate * dt, sense.target * TUNE.steerGain * urgency * dt));
-  const vTarget = Math.max(TUNE.vMin, Math.min(TUNE.vMax, (sense.minFront - TUNE.clear) * TUNE.vGain)) * (1 - Math.min(0.65, Math.abs(sense.target) * 1.3));
-  car.v += (vTarget - car.v) * Math.min(1, dt * (vTarget < car.v ? 5 : 1.8));
-  car.x += Math.cos(car.h) * car.v * dt;
-  car.y += Math.sin(car.h) * car.v * dt;
+  move(car, sense, dt);
   let crashed = false;
   if (Math.min(...sense.dists) < TUNE.hitDist) { respawn(track, car, obs, now); crashed = true; }
   const idx = nearestIdx(track, car.x, car.y);
   if (car.lastIdx > m - 30 && idx < 30) car.laps++;
   car.lastIdx = idx;
   return crashed;
+}
+
+
+// ---------------- the sub in the tank (Mecatron playground) ----------------
+export const TANK = { w: 900, h: 520, pad: 26 };
+export type SubMission = {
+  sub: Pose & { v: number };
+  gate: { x: number; y: number; half: number; postR: number }; // two posts at (x, y±half)
+  buoy: Obstacle;
+  home: Pt;
+  stage: 0 | 1 | 2 | 3; // 0 gate, 1 buoy, 2 home, 3 done
+  t: number;
+  done: number; // time of completion, ms
+  runs: number;
+  best: number;
+  bumps: number;
+};
+export function newMission(): SubMission {
+  return {
+    sub: { x: 90, y: TANK.h / 2, h: 0, v: 0 },
+    gate: { x: 380, y: TANK.h / 2 - 40, half: 46, postR: 8 },
+    buoy: { x: 760, y: 150, r: 12 },
+    home: { x: 90, y: TANK.h / 2 },
+    stage: 0, t: 0, done: 0, runs: 0, best: 0, bumps: 0,
+  };
+}
+export function tankWalls(): Seg[] {
+  const p = TANK.pad, w = TANK.w - p, h = TANK.h - p;
+  return [[{ x: p, y: p }, { x: w, y: p }], [{ x: w, y: p }, { x: w, y: h }], [{ x: w, y: h }, { x: p, y: h }], [{ x: p, y: h }, { x: p, y: p }]];
+}
+export function missionAim(ms: SubMission): Pt {
+  if (ms.stage === 0) return { x: ms.gate.x, y: ms.gate.y };
+  if (ms.stage === 1) return { x: ms.buoy.x, y: ms.buoy.y };
+  return ms.home;
+}
+// obstacles the planner must avoid: the gate posts, the buoy (except when it's the target), plus any debris
+export function missionObstacles(ms: SubMission, debris: Obstacle[]): Obstacle[] {
+  const posts: Obstacle[] = [{ x: ms.gate.x, y: ms.gate.y - ms.gate.half, r: ms.gate.postR }, { x: ms.gate.x, y: ms.gate.y + ms.gate.half, r: ms.gate.postR }];
+  // the buoy is a target while approaching it, and stays soft until the sub has backed well away from it
+  const nearBuoy = Math.hypot(ms.sub.x - ms.buoy.x, ms.sub.y - ms.buoy.y) < ms.buoy.r + 40;
+  return ms.stage === 1 || (ms.stage === 2 && nearBuoy) ? [...posts, ...debris] : [...posts, ms.buoy, ...debris];
+}
+export function missionStep(ms: SubMission, debris: Obstacle[], dt: number, now: number): Sense {
+  const obs = missionObstacles(ms, debris);
+  const aim = missionAim(ms);
+  const sense = planTowards(ms.sub, tankWalls(), obs, aim, 200);
+  if (ms.stage === 3) {
+    ms.sub.v *= 0.9;
+    if (now - ms.done > 2200) { const keep = { runs: ms.runs, best: ms.best }; Object.assign(ms, newMission(), keep); }
+    return sense;
+  }
+  ms.t += dt;
+  // when the target is the buoy, drive at it rather than treating it as a wall
+  const before = { x: ms.sub.x, y: ms.sub.y };
+  move(ms.sub, sense, dt, 150);
+  if (Math.min(...sense.dists) < 6) { ms.bumps++; ms.sub.v = 0; ms.sub.x = before.x; ms.sub.y = before.y; ms.sub.h += 0.5; }
+  if (ms.stage === 0 && before.x < ms.gate.x && ms.sub.x >= ms.gate.x && Math.abs(ms.sub.y - ms.gate.y) < ms.gate.half - ms.gate.postR) ms.stage = 1;
+  else if (ms.stage === 1 && Math.hypot(ms.sub.x - ms.buoy.x, ms.sub.y - ms.buoy.y) < ms.buoy.r + 14) ms.stage = 2;
+  else if (ms.stage === 2 && Math.hypot(ms.sub.x - ms.home.x, ms.sub.y - ms.home.y) < 22) {
+    ms.stage = 3; ms.done = now; ms.runs++;
+    if (!ms.best || ms.t < ms.best) ms.best = ms.t;
+  }
+  return sense;
 }

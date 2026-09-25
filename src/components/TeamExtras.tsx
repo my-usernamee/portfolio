@@ -15,3 +15,10 @@ export function DiveButton() {
     </button>
   );
 }
+export function SubDemoButton() {
+  return (
+    <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("hari:sub"))} className="route-tag !rotate-0" style={{ ["--tag" as string]: "var(--teal-bright)" }}>
+      ▶ see how it swims
+    </button>
+  );
+}

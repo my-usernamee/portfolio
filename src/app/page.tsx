@@ -5,7 +5,7 @@ import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import { NextRaceLine } from "@/components/NextRace";
 import Reveal from "@/components/Reveal";
-import { DeepSpeedDemoButton, DiveButton } from "@/components/TeamExtras";
+import { DeepSpeedDemoButton, DiveButton, SubDemoButton } from "@/components/TeamExtras";
 import { getNextRace } from "@/lib/f1";
 import { honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
 
@@ -112,7 +112,7 @@ export default async function Home() {
                     ))}
                   </div>
                   <div className="mt-auto border-t border-line pt-4">
-                    <div>{t.slug === "deepspeed" ? <DeepSpeedDemoButton /> : <DiveButton />}</div>
+                    <div className="flex flex-wrap gap-2">{t.slug === "deepspeed" ? <DeepSpeedDemoButton /> : <><SubDemoButton /><DiveButton /></>}</div>
                     <a href={t.link} target="_blank" rel="noreferrer" className="link-under mt-3 inline-block font-mono text-xs text-graphite hover:text-ink">
                       team site ↗
                     </a>

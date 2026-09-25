@@ -1,6 +1,6 @@
 // Headless run of the playground planner: same track, an obstacle layout, N seconds of sim time.
 //   npx tsx scripts/sim-test.ts
-import { buildTrack, newCar, plan, step, OB_R, TUNE, type Obstacle } from "../src/lib/gapFollower";
+import { buildTrack, newCar, plan, step, OB_R, newMission, missionStep, type Obstacle } from "../src/lib/gapFollower";
 
 const track = buildTrack();
 const layouts: Record<string, Obstacle[]> = {
@@ -25,5 +25,14 @@ for (const [name, obs] of Object.entries(layouts)) {
   const ok = car.crashes === 0 && car.laps >= secs / 25;
   allOk &&= ok;
   console.log(`${ok ? "ok  " : "FAIL"} ${name.padEnd(12)} laps ${car.laps}  crashes ${car.crashes}  minV ${minV.toFixed(0)}  slow ${stuck.toFixed(1)}s ${crashAt.slice(0, 4).join(" ")}`);
+}
+// the sub: gate, buoy, home. Must finish at least two runs in 60s with no bumps, with and without debris.
+for (const [name, debris] of Object.entries({ "sub clear": [], "sub debris": [{ x: 560, y: 300, r: 10 }, { x: 250, y: 200, r: 10 }, { x: 620, y: 160, r: 10 }] } as Record<string, Obstacle[]>)) {
+  const ms = newMission();
+  const dt = 1 / 60;
+  for (let t = 0; t < 60; t += dt) missionStep(ms, debris, dt, t * 1000);
+  const ok = ms.runs >= 2 && ms.bumps === 0;
+  allOk &&= ok;
+  console.log(`${ok ? "ok  " : "FAIL"} ${name.padEnd(12)} runs ${ms.runs}  best ${ms.best.toFixed(1)}s  bumps ${ms.bumps}  stage ${ms.stage}`);
 }
 process.exit(allOk ? 0 : 1);

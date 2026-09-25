@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 // Rain on the road when it's raining at NTU. Add ?rain=1 to the URL to force it and see the effect.
 type W = { raining: boolean; expected: boolean; forecast: string; tempC: number | null; validUntil: string };
 
 export default function Weather() {
   const [w, setW] = useState<W | null>(null);
-  const [forced, setForced] = useState(false);
+  const forced = useSyncExternalStore(() => () => {}, () => new URLSearchParams(window.location.search).get("rain") === "1", () => false);
 
   useEffect(() => {
-    const force = new URLSearchParams(window.location.search).get("rain") === "1";
-    setForced(force);
     let stop = false;
     const load = async () => {
       try {

@@ -51,7 +51,6 @@ export default function LidarPlayground() {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
     const track = buildTrack();
-    const m = track.centre.length;
     const car = newCar(track);
     let raf = 0, last = performance.now();
     const resize = () => {

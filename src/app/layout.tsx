@@ -9,6 +9,7 @@ import Cursor from "@/components/Cursor";
 import Terminal from "@/components/Terminal";
 import PageWipe from "@/components/PageWipe";
 import LidarPlayground from "@/components/LidarPlayground";
+import SubPlayground from "@/components/SubPlayground";
 import DiveMode from "@/components/DiveMode";
 import Weather from "@/components/Weather";
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Terminal />
         <PageWipe />
         <LidarPlayground />
+        <SubPlayground />
         <DiveMode />
         <Weather />
         <RobotGate />
