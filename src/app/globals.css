@@ -462,6 +462,13 @@ html.dive .road-centre { stroke-dasharray: 2 10; }
 .wipe.uncover .wipe-car { right: auto; left: -10px; transform: translateY(-50%) rotate(-90deg); }
 @media (prefers-reduced-motion: reduce) { .wipe { display: none; } }
 
+/* tilt parallax on phones: --tx/--ty are -1..1 from the gyroscope; `translate` stacks on top of any transform */
+:root { --tx: 0; --ty: 0; }
+html.tilt .polaroid, html.tilt .card > .zoom img, html.tilt .tile img { translate: calc(var(--tx) * 6px) calc(var(--ty) * 6px); transition: translate 0.05s linear; }
+html.tilt .polaroid-hero { translate: calc(var(--tx) * 9px) calc(var(--ty) * 9px); }
+html.tilt .tilt-far { translate: calc(var(--tx) * -14px) calc(var(--ty) * -14px); transition: translate 0.05s linear; }
+html.tilt .kind, html.tilt .chip { translate: calc(var(--tx) * 2px) calc(var(--ty) * 2px); }
+
 /* live dot on real-time data */
 .live-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--teal-bright); box-shadow: 0 0 0 0 rgba(0, 210, 190, 0.6); animation: live-ping 1.6s ease-out infinite; }
 @keyframes live-ping { 0% { box-shadow: 0 0 0 0 rgba(0, 210, 190, 0.6); } 100% { box-shadow: 0 0 0 7px rgba(0, 210, 190, 0); } }

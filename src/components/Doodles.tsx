@@ -122,13 +122,24 @@ export function HoldField({ n = 5, seed, className = "" }: { n?: number; seed?: 
     return () => window.removeEventListener("resize", place);
   }, [holds]);
 
+  const phoneSpots = [{ right: 6, top: "9%" }, { left: 4, top: "38%" }, { right: 8, top: "71%" }] as const;
   return (
-    <div ref={root} className={`pointer-events-none absolute inset-0 hidden lg:block ${className}`} aria-hidden="true">
-      {holds.map((h, i) => (
-        <span key={i} className="pointer-events-auto absolute" style={{ display: "none" }}>
-          <Hold color={h.color} rotate={h.rotate} size={h.size} kind={h.kind} />
-        </span>
-      ))}
-    </div>
+    <>
+      <div ref={root} className={`pointer-events-none absolute inset-0 hidden lg:block ${className}`} aria-hidden="true">
+        {holds.map((h, i) => (
+          <span key={i} className="pointer-events-auto absolute" style={{ display: "none" }}>
+            <Hold color={h.color} rotate={h.rotate} size={h.size} kind={h.kind} />
+          </span>
+        ))}
+      </div>
+      {/* phones: a few holds along the edges, behind the content, so the tilt has something to move */}
+      <div className="pointer-events-none absolute inset-0 -z-10 lg:hidden" aria-hidden="true">
+        {holds.slice(0, 3).map((h, i) => (
+          <span key={i} className="tilt-far absolute" style={{ ...phoneSpots[i] }}>
+            <Hold color={h.color} rotate={h.rotate} size={Math.min(h.size, 26)} kind={h.kind} />
+          </span>
+        ))}
+      </div>
+    </>
   );
 }
