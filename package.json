@@ -9,7 +9,8 @@
     "lint": "eslint",
     "travel:import": "node scripts/import-travel.mjs && node scripts/build-map.mjs",
     "circuits:build": "node scripts/build-circuits.mjs",
-    "map:build": "node scripts/build-map.mjs"
+    "map:build": "node scripts/build-map.mjs",
+    "sim:test": "tsx scripts/sim-test.ts"
   },
   "dependencies": {
     "motion": "^13.4.2",

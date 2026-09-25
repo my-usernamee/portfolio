@@ -35,6 +35,7 @@ In dev a missing photo shows a hatched box with the expected path. In production
 - **Terminal**: press ` on any page with a keyboard. Commands are in `src/components/Terminal.tsx`.
 - **404 game**: `src/components/PitBoxGame.tsx`, scores stay in the visitor's browser.
 - **Rain on the road**: `/api/weather` polls data.gov.sg every 10 minutes. `?rain=1` forces it. Stations and thresholds are in `src/app/api/weather/route.ts`.
+- **LiDAR playground**: planner in `src/lib/gapFollower.ts`, tunables in `TUNE`. `npm run sim:test` drives it headless on four obstacle layouts and fails on any crash. Run it after touching the planner.
 - **Link preview**: `src/app/opengraph-image.tsx`. Set `NEXT_PUBLIC_SITE_URL` if the site isn't on Vercel.
 
 ## Circuit outlines
