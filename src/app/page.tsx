@@ -104,16 +104,16 @@ export default async function Home() {
                       </p>
                     ))}
                   </div>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-4 flex flex-wrap gap-1.5 pb-5">
                     {t.tags.map((tag) => (
                       <span key={tag} className="chip">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-line pt-4">
-                    {t.slug === "deepspeed" ? <DeepSpeedDemoButton /> : <DiveButton />}
-                    <a href={t.link} target="_blank" rel="noreferrer" className="link-under font-mono text-xs text-graphite hover:text-ink">
+                  <div className="mt-auto border-t border-line pt-4">
+                    <div>{t.slug === "deepspeed" ? <DeepSpeedDemoButton /> : <DiveButton />}</div>
+                    <a href={t.link} target="_blank" rel="noreferrer" className="link-under mt-3 inline-block font-mono text-xs text-graphite hover:text-ink">
                       team site ↗
                     </a>
                   </div>

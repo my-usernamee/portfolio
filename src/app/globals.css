@@ -394,8 +394,19 @@ html.dive .road-centre { stroke-dasharray: 2 10; }
   50% { transform: translateY(-50vh) translateX(10px); }
   100% { transform: translateY(-105vh) translateX(-8px); opacity: 0; }
 }
-.dive-surface { position: fixed; right: 20px; bottom: 64px; z-index: 57; }
-@media (min-width: 1024px) { .dive-surface { bottom: 20px; } }
+.dive-surface {
+  position: fixed; right: 20px; bottom: 64px; z-index: 57;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
+  color: #101214; background: var(--teal-bright);
+  border: 1px solid var(--ink); box-shadow: 3px 4px 0 rgba(21, 23, 26, 0.35);
+  cursor: pointer; transition: transform 0.15s ease;
+}
+.dive-surface:hover { transform: translateY(-2px); }
+.dive-arrow { display: inline-block; font-size: 16px; font-weight: 700; animation: dive-bob 1.2s ease-in-out infinite; }
+@keyframes dive-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@media (min-width: 1024px) { .dive-surface { bottom: 24px; right: 24px; } }
 @media (prefers-reduced-motion: reduce) { .dive-bubbles span { animation: none; display: none; } }
 
 /* race mode HUD */
@@ -450,6 +461,11 @@ html.dive .road-centre { stroke-dasharray: 2 10; }
 .wipe.uncover .wipe-edge { right: auto; left: 0; }
 .wipe.uncover .wipe-car { right: auto; left: -10px; transform: translateY(-50%) rotate(-90deg); }
 @media (prefers-reduced-motion: reduce) { .wipe { display: none; } }
+
+/* live dot on real-time data */
+.live-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--teal-bright); box-shadow: 0 0 0 0 rgba(0, 210, 190, 0.6); animation: live-ping 1.6s ease-out infinite; }
+@keyframes live-ping { 0% { box-shadow: 0 0 0 0 rgba(0, 210, 190, 0.6); } 100% { box-shadow: 0 0 0 7px rgba(0, 210, 190, 0); } }
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
 
 /* travel map */
 @keyframes map-ping { 0% { r: 7; opacity: 0.9; } 100% { r: 18; opacity: 0; } }

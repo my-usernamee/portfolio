@@ -6,14 +6,14 @@ import { profile } from "@/data/profile";
 // Hidden terminal. Press ` (backtick) anywhere on a keyboard device. Type help, or click a command.
 const PAGES: Record<string, string> = { home: "/", "~": "/", writing: "/writing", interests: "/interests", climbing: "/climbing", f1: "/f1", photos: "/photos", travel: "/photos" };
 const LINKS: Record<string, string> = { github: profile.links.github, linkedin: profile.links.linkedin, medium: profile.links.medium, deepspeed: profile.links.team, mecatron: profile.links.mecatron, insta: "https://www.instagram.com/justgoupbruh" };
-const CHIPS = ["help", "race", "ls", "cd climbing", "cd f1", "cat resume", "open github", "whoami", "lap", "box"];
+const CHIPS = ["help", "race", "ls", "cd climbing", "cd f1", "cat resume", "open github", "whoami", "lap", "box", "q"];
 const COMMANDS = ["help", "race", "ls", "cd", "cat", "open", "whoami", "lap", "box", "clear", "exit"];
 
 type Line = { text: string; kind?: "in" | "out" | "err" | "hl" };
 
 export default function Terminal() {
   const [open, setOpen] = useState(false);
-  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help, hit tab to complete, click a command below, q to close", kind: "hl" }]);
+  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help, hit tab to complete, or click a command below. type q to close.", kind: "hl" }]);
   const [input, setInput] = useState("");
   const [hist, setHist] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
@@ -140,7 +140,7 @@ export default function Terminal() {
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-teal-bright" /> HARI.SH
             </span>
-            <span>type q to close</span>
+            <span className="text-teal-bright">type <b>q</b> + enter to close · esc works too</span>
           </div>
           <div ref={bodyRef} className="max-h-64 overflow-y-auto px-3 py-2 font-mono text-xs leading-relaxed">
             {lines.map((l, i) => (

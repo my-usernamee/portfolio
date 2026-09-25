@@ -25,8 +25,9 @@ export default function DiveMode() {
           <span key={i} style={{ left: `${b.left}%`, width: b.size, height: b.size, animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }} />
         ))}
       </div>
-      <button type="button" onClick={() => setOn(false)} className="dive-surface route-tag !rotate-0" style={{ ["--tag" as string]: "var(--teal-bright)" }}>
-        ↑ surface
+      <button type="button" onClick={() => setOn(false)} className="dive-surface" aria-label="Go back to land">
+        <span className="dive-arrow" aria-hidden="true">↑</span>
+        <span>click here to go back to land</span>
       </button>
     </>
   );

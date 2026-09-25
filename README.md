@@ -34,6 +34,7 @@ In dev a missing photo shows a hatched box with the expected path. In production
 - **Next race** on `/f1` and the home page comes from api.jolpi.ca, cached an hour. Podium pick lives in `src/data/f1.ts`.
 - **Terminal**: press ` on any page with a keyboard. Commands are in `src/components/Terminal.tsx`.
 - **404 game**: `src/components/PitBoxGame.tsx`, scores stay in the visitor's browser.
+- **Rain on the road**: `/api/weather` polls data.gov.sg every 10 minutes. `?rain=1` forces it. Stations and thresholds are in `src/app/api/weather/route.ts`.
 - **Link preview**: `src/app/opengraph-image.tsx`. Set `NEXT_PUBLIC_SITE_URL` if the site isn't on Vercel.
 
 ## Circuit outlines
