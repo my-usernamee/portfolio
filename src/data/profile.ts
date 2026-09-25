@@ -1,5 +1,3 @@
-import { countries } from "./travel";
-
 export const profile = {
   firstName: "Hari",
   fullName: "Sarvajana Hari",
@@ -152,5 +150,5 @@ export const honors = [
 export const interests = [
   { label: "bouldering", note: "badly, for fun", href: "/climbing" },
   { label: "f1 trips", note: "Marina Bay, Albert Park, Sepang", href: "/f1" },
-  { label: "travel photos", note: `${countries.length} countries, one trek`, href: "/photos" },
+  { label: "travel photos", note: "a trek, some race weekends, a lot of food", href: "/photos" },
 ];

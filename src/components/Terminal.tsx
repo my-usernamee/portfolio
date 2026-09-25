@@ -4,15 +4,17 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/profile";
 
-// Hidden terminal. Press ` (backtick) anywhere on a keyboard device. Type help.
+// Hidden terminal. Press ` (backtick) anywhere on a keyboard device. Type help, or click a command.
 const PAGES: Record<string, string> = { home: "/", "~": "/", writing: "/writing", interests: "/interests", climbing: "/climbing", f1: "/f1", photos: "/photos", travel: "/photos" };
 const LINKS: Record<string, string> = { github: profile.links.github, linkedin: profile.links.linkedin, medium: profile.links.medium, deepspeed: profile.links.team, mecatron: profile.links.mecatron, insta: "https://www.instagram.com/justgoupbruh" };
+const CHIPS = ["help", "ls", "cd climbing", "cd f1", "cat resume", "open github", "whoami", "lap", "box"];
+const COMMANDS = ["help", "ls", "cd", "cat", "open", "whoami", "lap", "box", "clear", "exit"];
 
 type Line = { text: string; kind?: "in" | "out" | "err" | "hl" };
 
 export default function Terminal() {
   const [open, setOpen] = useState(false);
-  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help", kind: "hl" }]);
+  const [lines, setLines] = useState<Line[]>([{ text: "hari.sh · type help, hit tab to complete, or click a command below", kind: "hl" }]);
   const [input, setInput] = useState("");
   const [hist, setHist] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
@@ -43,6 +45,7 @@ export default function Terminal() {
   }, [lines]);
 
   const print = (...ls: Line[]) => setLines((cur) => [...cur, ...ls]);
+  const focus = () => inputRef.current?.focus();
 
   const run = (raw: string) => {
     const cmd = raw.trim();
@@ -116,19 +119,28 @@ export default function Terminal() {
     }
   };
 
+  const complete = () => {
+    const [c, a = ""] = input.split(/\s+/);
+    const pool = c === "cd" ? Object.keys(PAGES) : c === "open" ? Object.keys(LINKS) : COMMANDS;
+    const hit = pool.find((k) => k.startsWith(c === "cd" || c === "open" ? a : c));
+    if (hit) setInput(c === "cd" || c === "open" ? `${c} ${hit}` : hit);
+  };
+
   if (!open) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[90] hidden md:block" role="dialog" aria-label="terminal">
       <div className="mx-auto max-w-3xl px-5 pb-5">
-        <div className="card overflow-hidden bg-ink text-paper shadow-[4px_6px_0_rgba(21,23,26,0.25)]">
-          <div className="flex items-center justify-between border-b border-paper/15 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-paper/60">
-            <span>HARI.SH</span>
-            <span>` to close</span>
+        <div className="term" onClick={focus}>
+          <div className="flex items-center justify-between border-b border-teal-bright/20 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-paper/50">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-teal-bright" /> HARI.SH
+            </span>
+            <span>` or esc to close</span>
           </div>
           <div ref={bodyRef} className="max-h-64 overflow-y-auto px-3 py-2 font-mono text-xs leading-relaxed">
             {lines.map((l, i) => (
-              <div key={i} className={l.kind === "in" ? "text-paper/60" : l.kind === "err" ? "text-[#ff8f8f]" : l.kind === "hl" ? "text-teal-bright" : "text-paper"}>
+              <div key={i} className={l.kind === "in" ? "text-paper/50" : l.kind === "err" ? "text-[#ff8f8f]" : l.kind === "hl" ? "text-teal-bright" : "text-paper/90"}>
                 {l.text}
               </div>
             ))}
@@ -138,39 +150,62 @@ export default function Terminal() {
                 run(input);
                 setInput("");
               }}
-              className="flex items-center gap-2"
+              className="relative flex items-center gap-2"
             >
               <span className="text-teal-bright">$</span>
-              <input
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    const n = Math.min(hIdx + 1, hist.length - 1);
-                    setHIdx(n);
-                    setInput(hist[n] ?? "");
-                  } else if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    const n = Math.max(hIdx - 1, -1);
-                    setHIdx(n);
-                    setInput(n < 0 ? "" : hist[n]);
-                  } else if (e.key === "Tab") {
-                    e.preventDefault();
-                    const [c, a = ""] = input.split(/\s+/);
-                    const pool = c === "cd" ? Object.keys(PAGES) : c === "open" ? Object.keys(LINKS) : ["help", "ls", "cd", "cat", "open", "whoami", "lap", "box", "clear", "exit"];
-                    const hit = pool.find((k) => k.startsWith(c === "cd" || c === "open" ? a : c));
-                    if (hit) setInput(c === "cd" || c === "open" ? `${c} ${hit}` : hit);
-                  }
-                }}
-                spellCheck={false}
-                autoComplete="off"
-                aria-label="command"
-                className="flex-1 bg-transparent text-paper outline-none placeholder:text-paper/30"
-                placeholder="help"
-              />
+              {/* the real input is invisible; a mirror shows the text with a blinking block cursor */}
+              <span className="relative flex-1 whitespace-pre text-paper">
+                <span aria-hidden="true">{input}</span>
+                <span aria-hidden="true" className="term-caret" />
+                <input
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "ArrowUp") {
+                      e.preventDefault();
+                      const n = Math.min(hIdx + 1, hist.length - 1);
+                      setHIdx(n);
+                      setInput(hist[n] ?? "");
+                    } else if (e.key === "ArrowDown") {
+                      e.preventDefault();
+                      const n = Math.max(hIdx - 1, -1);
+                      setHIdx(n);
+                      setInput(n < 0 ? "" : hist[n]);
+                    } else if (e.key === "Tab") {
+                      e.preventDefault();
+                      complete();
+                    }
+                  }}
+                  spellCheck={false}
+                  autoComplete="off"
+                  aria-label="command"
+                  className="absolute inset-0 w-full bg-transparent text-transparent caret-transparent outline-none"
+                />
+              </span>
             </form>
+          </div>
+          <div className="flex flex-wrap gap-1.5 border-t border-teal-bright/20 px-3 py-2">
+            {CHIPS.map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setInput(c);
+                  focus();
+                }}
+                onDoubleClick={(e) => {
+                  e.stopPropagation();
+                  run(c);
+                  setInput("");
+                }}
+                className="term-chip"
+              >
+                {c}
+              </button>
+            ))}
+            <span className="ml-auto self-center font-mono text-[10px] text-paper/40">click to fill · enter to run</span>
           </div>
         </div>
       </div>

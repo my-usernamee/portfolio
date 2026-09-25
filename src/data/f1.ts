@@ -37,7 +37,4 @@ export const fan = {
   driver: "George Russell",
   number: 63,
   line: "Yes, the teal on this site is ==Petronas teal==. I watch qualifying more carefully than most people watch the race.",
-  // podium pick for the next race, top to bottom. Edit before every weekend, or don't and own it.
-  pick: ["George Russell", "Kimi Antonelli", "Charles Leclerc"],
-  pickNote: "updated when I remember. usually wrong about P3.",
 };

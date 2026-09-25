@@ -40,7 +40,10 @@ export default async function Home() {
             ))}
           </ul>
 
-          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
+          <p className="mt-7 hidden font-mono text-xs text-dim md:block">
+            psst. press <kbd className="rounded border border-line-strong bg-paper-2 px-1.5 py-0.5 text-ink">`</kbd> for a fun surprise
+          </p>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
             {[
               ["email", `mailto:${profile.email}`],
               ["github", profile.links.github],
