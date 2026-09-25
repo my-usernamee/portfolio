@@ -284,6 +284,43 @@ html.has-cursor .cursor-glyph { display: block; }
 }
 .term-chip:hover { background: rgba(0, 210, 190, 0.18); transform: translateY(-1px); }
 
+/* the hint under the photo: a little note that drifts, like it's pinned to the polaroid string */
+.psst-note {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+  padding: 0.35rem 0.6rem;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  box-shadow: 1px 2px 0 rgba(21, 23, 26, 0.08);
+  transform: rotate(-1.5deg);
+  animation: psst-float 4.5s ease-in-out infinite;
+}
+.psst-note::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 1px;
+  height: 9px;
+  background: var(--line-strong);
+}
+.psst-note kbd {
+  padding: 0 0.35rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--teal);
+  font-weight: 600;
+}
+@keyframes psst-float {
+  0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+  50% { transform: rotate(-0.5deg) translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) { .psst-note { animation: none; } }
+
 /* race mode HUD */
 .race-hud {
   position: fixed;
