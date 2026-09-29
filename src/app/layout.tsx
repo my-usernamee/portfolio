@@ -13,6 +13,7 @@ import SubPlayground from "@/components/SubPlayground";
 import DiveMode from "@/components/DiveMode";
 import Weather from "@/components/Weather";
 import Tilt from "@/components/Tilt";
+import Track from "@/components/Track";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <DiveMode />
         <Weather />
         <Tilt />
+        <Track />
         <RobotGate />
         <SiteNav />
         <ScrollCar />
