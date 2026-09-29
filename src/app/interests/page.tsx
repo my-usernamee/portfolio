@@ -16,7 +16,7 @@ export default function Interests() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Polaroid src="/images/climbing/cover.jpg" alt="Bouldering" title="bouldering" caption="Badly, for fun." href="/climbing" label="CLIMBING" mono={false} />
           <Polaroid src="/images/f1/singapore.jpg" alt="F1" title="f1 trips" caption="Marina Bay, Albert Park, Sepang. Team Russell, 63." href="/f1" label="F1" mono={false} />
-          <Polaroid src="/images/travel/cover.jpg" alt="Travel" title="travel photos" caption="Treks, race weekends, and the food in between." href="/photos" label="TRAVEL" mono={false} />
+          <Polaroid src="/images/travel/cover.jpg" alt="Travel" title="travel photos" caption="Treks, cities, and the food in between." href="/photos" label="TRAVEL" mono={false} />
         </div>
       </section>
     </main>
