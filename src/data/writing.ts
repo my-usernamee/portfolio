@@ -6,7 +6,7 @@ export type Post = { title: string; link: string; date: string; snippet: string;
 // Posts listed here show up regardless of Medium.
 export const manualPosts: Post[] = [
   {
-    title: "F1TENTH 101: a beginner's guide to autonomous racing",
+    title: "F1TENTH 101",
     link: "https://ntudeepspeed.github.io/pit-notes/f1tenth-101/",
     date: "2026-08-27",
     snippet: "What the 1/10-scale platform is, what's bolted to the car, and how a LiDAR scan becomes a steering angle.",
