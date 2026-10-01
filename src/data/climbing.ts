@@ -1,5 +1,5 @@
 export const climbing = {
-  line: "Badly, for fun. Same problem, try again, ==change one thing==.",
+  line: "Same problem, try again, ==change one thing==.",
   gym: "Boulder+",
   facts: [
     ["since", "Apr 2025"],
