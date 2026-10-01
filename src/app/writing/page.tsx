@@ -69,7 +69,7 @@ export default async function Writing() {
                     {p.title}
                   </a>
                   <p className="mt-2 text-sm text-graphite">{p.snippet}</p>
-                  <p className="mt-2 font-mono text-[10px] tracking-[0.18em] text-dim">{p.source.toUpperCase()}</p>
+                  <p className="mt-2 font-mono text-[10px] tracking-[0.18em] text-dim">{(p.label ?? p.source).toUpperCase()}</p>
                 </div>
               </li>
             ))}
