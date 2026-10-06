@@ -12,7 +12,6 @@ import LidarPlayground from "@/components/LidarPlayground";
 import SubPlayground from "@/components/SubPlayground";
 import DiveMode from "@/components/DiveMode";
 import Weather from "@/components/Weather";
-import Tilt from "@/components/Tilt";
 import Track from "@/components/Track";
 
 const archivo = Archivo({
@@ -55,7 +54,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SubPlayground />
         <DiveMode />
         <Weather />
-        <Tilt />
         <Track />
         <RobotGate />
         <SiteNav />

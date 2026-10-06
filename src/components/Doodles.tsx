@@ -132,10 +132,10 @@ export function HoldField({ n = 5, seed, className = "" }: { n?: number; seed?: 
           </span>
         ))}
       </div>
-      {/* phones: a few holds along the edges, behind the content, so the tilt has something to move */}
+      {/* phones: a few holds along the edges, behind the content */}
       <div className="pointer-events-none absolute inset-0 -z-10 lg:hidden" aria-hidden="true">
         {holds.slice(0, 3).map((h, i) => (
-          <span key={i} className="tilt-far absolute" style={{ ...phoneSpots[i] }}>
+          <span key={i} className="absolute" style={{ ...phoneSpots[i] }}>
             <Hold color={h.color} rotate={h.rotate} size={Math.min(h.size, 26)} kind={h.kind} />
           </span>
         ))}
