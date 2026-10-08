@@ -60,14 +60,14 @@ export const teams: Team[] = [
   {
     slug: "mecatron",
     name: "NTU Mecatron",
-    what: "Autonomous underwater vehicles",
-    role: "Robotics software · navigation & perception",
+    what: "Autonomous surface & underwater vehicles",
+    role: "Navigation software",
     since: "Aug 2026",
     lines: [
-      "Student-built autonomous underwater vehicles. Joined the club recently, on the robotics software team doing ==navigation and perception==.",
+      "Student-built autonomous boats and subs. I own the ==navigation task== for the USV, writing ==behaviour trees== in ROS 2 that sequence the mission and handle failures, then testing them in sim and in the pool.",
       "Next up: competing at ==RobotX== at the end of the year.",
     ],
-    tags: ["ROS 2", "Computer Vision", "Navigation"],
+    tags: ["ROS 2", "Behaviour Trees", "Navigation", "Simulation"],
     link: "https://mecatron.sg",
   },
 ];
@@ -111,8 +111,8 @@ export const projects: Project[] = [
     name: "Socratic Physics Bot",
     year: "2026",
     kind: "research",
-    blurb: "URECA undergraduate research at NTU. A physics tutor that ==answers a question with a better question==, so students reason their way to the result instead of copying it.",
-    tags: ["LLM", "Tutoring", "URECA"],
+    blurb: "URECA undergraduate research at NTU. A locally-run tutor that reads a photo of a physics problem and ==answers with a better question==, so students reason their way to the result. RAG over course material with Qdrant, on a self-hosted Qwen 2.5-VL.",
+    tags: ["Qwen 2.5-VL", "RAG", "Qdrant", "LM Studio"],
   },
 ];
 
@@ -123,19 +123,19 @@ export const stints: Stint[] = [
     period: "Aug 2026 – now",
     org: "NTU URECA",
     role: "Undergraduate researcher",
-    note: "Building a ==Socratic physics tutor bot== that answers a question with a better question, so students reason their way to the result instead of copying it.",
+    note: "Building a ==Socratic physics tutor== that reads a photo of the problem and guides students with questions, grounded in course material through RAG on a self-hosted model.",
   },
   {
     period: "May – Aug 2026",
     org: "Singapore Prison Service",
     role: "RPA Intern, Prison Visit Management",
-    note: "End-to-end RPA with ==UiPath and Power Automate==, integrating enterprise systems to automate high-volume admin workflows. Worked with stakeholders to find what to automate, redesign the workflow, and ship something that cuts manual steps and turnaround time.",
+    note: "Mapped the manual visit-management process and automated it with ==UiPath and Power Automate==, saving ==~2 hours of manual work a day==. Worked with stakeholders to find what to automate and redesign the workflow.",
   },
   {
     period: "Feb – Apr 2026",
     org: "OCBC Bank",
     role: "Intranet Revamp Intern, Group Legal & Compliance",
-    note: "Redesigned the ==SharePoint intranet== for five departments, ran testing and phased rollout, wrote the docs and training so it outlives the intern.",
+    note: "Rebuilt the ==SharePoint intranet==, consolidating five departments into one site. Ran testing and phased rollout, and wrote the docs and training so it outlives the intern.",
   },
 ];
 
