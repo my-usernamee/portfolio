@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono, UnifrakturMaguntia } from "next/font/google";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteNav from "@/components/SiteNav";
 import Footer from "@/components/Footer";
@@ -26,13 +26,6 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
-// just for the NYT-style T the cursor turns into on wordle things
-const blackletter = UnifrakturMaguntia({
-  variable: "--font-blackletter",
-  subsets: ["latin"],
-  weight: "400",
-});
-
 // absolute URLs for link previews; Vercel fills VERCEL_PROJECT_PRODUCTION_URL on deploy
 const site = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 
@@ -52,7 +45,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexMono.variable} ${blackletter.variable} h-full antialiased`}>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="grain min-h-full flex flex-col" suppressHydrationWarning>
         <Cursor />
         <Terminal />

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 // A teal ring follows the pointer with a little lag. The glyph next to it changes by zone:
 // hand over climbing holds, robot over the teams, laptop over projects, flag on F1 pages,
-// camera on photo pages, the NYT T on anything wordle. Links grow the ring. Off on touch devices and with reduced motion.
+// camera on photo pages, the NYT logo on anything wordle. Links grow the ring. Off on touch devices and with reduced motion.
 type Mode = "ring" | "link" | "hand" | "robot" | "code" | "flag" | "camera" | "country" | "wordle";
 
 const stroke = { fill: "var(--paper)", stroke: "var(--ink)", strokeWidth: 1.6, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
@@ -139,8 +139,11 @@ export default function Cursor() {
       <div ref={glyph} className="cursor-glyph" data-mode="ring" aria-hidden="true">
         <Glyphs />
         <span ref={flag} data-glyph="country" className="cursor-flag" />
+        {/* the NYT "T", from Wikimedia Commons: New_York_Times_T_icon.svg */}
         <span data-glyph="wordle" className="cursor-nyt">
-          T
+          <svg viewBox="0 0 13.9 18.6" width="13" height="17" fill="var(--ink)">
+            <path d="M13.9,2.5C13.9.5,12,0,10.5,0V.3c.9,0,1.6.3,1.6,1a1.05872,1.05872,0,0,1-1.2,1,12.95853,12.95853,0,0,1-3.3-.8A13.27527,13.27527,0,0,0,4.1.7,3.27043,3.27043,0,0,0,.7,3.9,2.31777,2.31777,0,0,0,2.2,6.1l.1-.2a1.05381,1.05381,0,0,1-.6-1A1.26593,1.26593,0,0,1,3.1,3.8a14.776,14.776,0,0,1,3.7.9,28.25773,28.25773,0,0,0,3.7.8V8.6L9,9.9V10l1.5,1.3v4.3a4.6179,4.6179,0,0,1-2.5.6,4.92913,4.92913,0,0,1-3.9-1.6l4.1-2v-7l-5,2.2A6.68515,6.68515,0,0,1,5.8,4.9l-.1-.2A7.47133,7.47133,0,0,0,0,11.6a7.01948,7.01948,0,0,0,7,7,6.50532,6.50532,0,0,0,6.6-6.5h-.2a6.69748,6.69748,0,0,1-2.6,3.1V11.1l1.6-1.3V9.7L10.9,8.4v-3A2.85791,2.85791,0,0,0,13.9,2.5Zm-8.7,11L4,14.1a5.93247,5.93247,0,0,1-1.1-3.8,7.10647,7.10647,0,0,1,.3-2.1l2.1-.9Z" />
+          </svg>
         </span>
       </div>
     </>
