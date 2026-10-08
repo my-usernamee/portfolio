@@ -18,7 +18,7 @@ const TITLE: [string, string][] = [
 
 export default function WordlePage() {
   return (
-    <main>
+    <main data-cursor="wordle">
       <header className="mx-auto max-w-6xl px-5 pb-8 pt-12 sm:px-8 sm:pt-16 lg:pl-28">
         <p className="font-mono text-xs tracking-[0.18em] text-teal">A SMALL OBSESSION</p>
         <h1 className="mt-4 flex gap-1.5 sm:gap-2" aria-label="wordle">

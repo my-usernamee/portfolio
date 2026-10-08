@@ -27,7 +27,7 @@ export const bio =
 // three pointers, none of them the internships or the teams
 export const pointers: { text: string; href?: string; solver?: boolean }[] = [
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
-  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "https://medium.com/@thisisnotmygoooglemailid/solving-wordle-with-entropy-4f4b20fb710e", solver: true },
+  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "/wordle", solver: true },
 ];
 
 export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "computer engineering @ ntu" };

@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 // A teal ring follows the pointer with a little lag. The glyph next to it changes by zone:
 // hand over climbing holds, robot over the teams, laptop over projects, flag on F1 pages,
-// camera on photo pages. Links grow the ring. Off on touch devices and with reduced motion.
-type Mode = "ring" | "link" | "hand" | "robot" | "code" | "flag" | "camera" | "country";
+// camera on photo pages, wordle tiles on anything wordle. Links grow the ring. Off on touch devices and with reduced motion.
+type Mode = "ring" | "link" | "hand" | "robot" | "code" | "flag" | "camera" | "country" | "wordle";
 
 const stroke = { fill: "var(--paper)", stroke: "var(--ink)", strokeWidth: 1.6, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
@@ -59,6 +59,13 @@ function Glyphs() {
           <circle cx="31" cy="16" r="1.2" fill="var(--ink)" />
         </g>
       </svg>
+      <svg data-glyph="wordle" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+        {[
+          ["#8b9198", "#e2b53c", "#8b9198"],
+          ["#8b9198", "var(--green)", "#e2b53c"],
+          ["var(--green)", "var(--green)", "var(--green)"],
+        ].map((row, r) => row.map((c, k) => <rect key={`${r}${k}`} x={5 + k * 10.5} y={5 + r * 10.5} width="9" height="9" fill={c} stroke="var(--ink)" strokeWidth="1.2" />))}
+      </svg>
     </>
   );
 }
@@ -96,6 +103,7 @@ export default function Cursor() {
         if (flag.current) flag.current.textContent = toFlag(tile.dataset.flag);
         return "country";
       }
+      if (t.closest('[data-cursor="wordle"]')) return "wordle";
       if (t.closest("a, button, input[type=range], [role=button]")) return "link";
       const z = t.closest<HTMLElement>("[data-cursor]")?.dataset.cursor as Mode | undefined;
       return z ?? "ring";
