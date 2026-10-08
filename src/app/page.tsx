@@ -5,6 +5,7 @@ import Photo from "@/components/Photo";
 import ProjectCard from "@/components/ProjectCard";
 import { NextRaceLine } from "@/components/NextRace";
 import Reveal from "@/components/Reveal";
+import WordleTeaser from "@/components/WordleTeaser";
 import { DeepSpeedDemoButton, DiveButton, SubDemoButton } from "@/components/TeamExtras";
 import { getNextRace } from "@/lib/f1";
 import { honors, interests, photo, pointers, profile, projects, skills, stints, teams } from "@/data/profile";
@@ -40,6 +41,8 @@ export default async function Home() {
               </li>
             ))}
           </ul>
+
+          <WordleTeaser />
 
           <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
             {[

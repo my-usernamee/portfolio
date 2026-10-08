@@ -539,3 +539,24 @@ html.dive .road-centre { stroke-dasharray: 2 10; }
 @media (prefers-reduced-motion: reduce) {
   .blink, .gate-shake, .pit-pulse, .pit-hint, .term-caret { animation: none; }
 }
+
+/* wordle tiles: flip in, pop when typed, shake on a bad word, confetti when solved */
+.wt { --c: var(--paper); --fg: var(--ink); --b: var(--line-strong); background: var(--c); color: var(--fg); border: 2px solid var(--b); }
+.wt[data-s="0"] { --c: #8b9198; --fg: var(--paper); --b: #8b9198; }
+.wt[data-s="2"] { --c: #e2b53c; --fg: var(--ink); --b: #e2b53c; }
+.wt[data-s="1"] { --c: var(--green); --fg: var(--paper); --b: var(--green); }
+.wt[data-s="e"] { --b: var(--ink); }
+.wt-flip { animation: wt-flip 0.5s ease both; animation-delay: calc(var(--i, 0) * 110ms); }
+@keyframes wt-flip { 0% { transform: rotateX(0); background: var(--paper); color: var(--ink); border-color: var(--ink); } 49.9% { transform: rotateX(90deg); background: var(--paper); color: var(--ink); border-color: var(--ink); } 50% { transform: rotateX(90deg); background: var(--c); color: var(--fg); border-color: var(--b); } 100% { transform: rotateX(0); background: var(--c); color: var(--fg); border-color: var(--b); } }
+.wt-pop { animation: wt-pop 0.12s ease; }
+@keyframes wt-pop { 50% { transform: scale(1.1); } }
+.wt-shake { animation: wt-shake 0.4s ease; }
+@keyframes wt-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.wt-think { animation: wt-think 0.9s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes wt-think { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } }
+.wt-cycle { animation: wt-cycle 3s ease infinite; animation-delay: calc(var(--i, 0) * 110ms); }
+@keyframes wt-cycle { 0%, 70%, 100% { transform: rotateX(0); } 80% { transform: rotateX(90deg); } 90% { transform: rotateX(0); } }
+.confetti { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.confetti i { position: absolute; left: 50%; top: 40%; width: 8px; height: 8px; animation: confetti 1.1s cubic-bezier(0.2, 0.7, 0.4, 1) forwards; }
+@keyframes confetti { from { transform: translate(0, 0) rotate(0); opacity: 1; } to { transform: translate(var(--x), var(--y)) rotate(540deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .wt-flip, .wt-pop, .wt-shake, .wt-think, .wt-cycle, .confetti i { animation: none; } }

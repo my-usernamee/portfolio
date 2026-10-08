@@ -18,6 +18,7 @@ export const profile = {
 export const pages = [
   { href: "/writing", label: "writing", color: "#e2b53c" },
   { href: "/interests", label: "interests", color: "#d9643a" },
+  { href: "/wordle", label: "wordle", color: "#3f9a5a" },
 ];
 
 // the bio under the name, in Hari's words
@@ -26,7 +27,7 @@ export const bio =
 
 // three pointers, none of them the internships or the teams
 export const pointers: { text: string; href?: string }[] = [
-  { text: "Ran 300 million calculations to find the best Wordle opener. See how yours ranks", href: "/wordle" },
+  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "https://medium.com/@thisisnotmygoooglemailid/solving-wordle-with-entropy-4f4b20fb710e" },
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
 ];
 
