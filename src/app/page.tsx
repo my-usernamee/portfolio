@@ -31,18 +31,19 @@ export default async function Home() {
             {pointers.map((f) => (
               <li key={f.text} className="flex gap-3">
                 <span className="text-teal">&gt;</span>
-                {f.href ? (
-                  <a href={f.href} target={f.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="link-under hover:text-ink">
+                <span>
+                  {f.href ? (
+                    <a href={f.href} target={f.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="link-under hover:text-ink">
+                      <Hl>{f.text}</Hl>
+                    </a>
+                  ) : (
                     <Hl>{f.text}</Hl>
-                  </a>
-                ) : (
-                  <Hl>{f.text}</Hl>
-                )}
+                  )}
+                  {f.solver && <WordleTeaser />}
+                </span>
               </li>
             ))}
           </ul>
-
-          <WordleTeaser />
 
           <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs">
             {[

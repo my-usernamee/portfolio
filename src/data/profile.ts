@@ -18,7 +18,6 @@ export const profile = {
 export const pages = [
   { href: "/writing", label: "writing", color: "#e2b53c" },
   { href: "/interests", label: "interests", color: "#d9643a" },
-  { href: "/wordle", label: "wordle", color: "#3f9a5a" },
 ];
 
 // the bio under the name, in Hari's words
@@ -26,9 +25,9 @@ export const bio =
   "I'm into robotics, machine learning, and building random things that seem interesting. Usually learning by doing, tinkering with ideas, and turning half-baked concepts into actual projects.";
 
 // three pointers, none of them the internships or the teams
-export const pointers: { text: string; href?: string }[] = [
-  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "https://medium.com/@thisisnotmygoooglemailid/solving-wordle-with-entropy-4f4b20fb710e" },
+export const pointers: { text: string; href?: string; solver?: boolean }[] = [
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
+  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "https://medium.com/@thisisnotmygoooglemailid/solving-wordle-with-entropy-4f4b20fb710e", solver: true },
 ];
 
 export const photo = { src: "/images/hari.jpg", alt: "Hari in a beanie by the sea", caption: "computer engineering @ ntu" };
