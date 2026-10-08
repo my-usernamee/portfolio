@@ -26,7 +26,7 @@ export const bio =
 
 // three pointers, none of them the internships or the teams
 export const pointers: { text: string; href?: string }[] = [
-  { text: "Ran 300 million calculations to find the best Wordle opener, then wrote it up", href: "/writing" },
+  { text: "Ran 300 million calculations to find the best Wordle opener. See how yours ranks", href: "/wordle" },
   { text: "Built a Chrome extension that tells you which side of the bus to sit on", href: "https://github.com/my-usernamee/shady" },
 ];
 

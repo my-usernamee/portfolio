@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/wordle.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{node_modules/**,.next/**,public/**,src/**,scripts/**}"
+    }
+  }
+}
